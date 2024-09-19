@@ -1,58 +1,47 @@
 {
-  "_metadata": {
-      "major_version": 1,
-      "minor_version": 1
-  },
   "display_information": {
-      "name": "Bolt Template App"
+    "name": "Bolt Python Assistant"
   },
   "features": {
-      "app_home": {
-          "home_tab_enabled": true,
-          "messages_tab_enabled": false,
-          "messages_tab_read_only_enabled": true
-      },
-      "bot_user": {
-          "display_name": "Bolt Template App",
-          "always_online": false
-      },
-      "shortcuts": [
-          {
-              "name": "Run sample shortcut",
-              "type": "global",
-              "callback_id": "sample_shortcut_id",
-              "description": "Runs a sample shortcut"
-          }
-      ],
-      "slash_commands": [
-          {
-              "command": "/sample-command",
-              "description": "Runs a sample command",
-              "should_escape": false
-          }
-      ]
+    "app_home": {
+      "home_tab_enabled": false,
+      "messages_tab_enabled": true,
+      "messages_tab_read_only_enabled": false
+    },
+    "bot_user": {
+      "display_name": "Bolt Python Assistant",
+      "always_online": false
+    },
+    "assistant_view": {
+      "assistant_description": "Hi, I am an assistant built using Bolt for Python. I am here to help you out!",
+      "suggested_prompts": []
+    }
   },
   "oauth_config": {
-      "scopes": {
-          "bot": [
-              "channels:history",
-              "chat:write",
-              "commands"
-          ]
-      }
+    "scopes": {
+      "bot": [
+        "assistant:write",
+        "channels:join",
+        "im:history",
+        "channels:history",
+        "groups:history",
+        "chat:write"
+      ]
+    }
   },
   "settings": {
-      "event_subscriptions": {
-          "bot_events": [
-              "app_home_opened",
-              "message.channels"
-          ]
-      },
-      "interactivity": {
-          "is_enabled": true
-      },
-      "org_deploy_enabled": false,
-      "socket_mode_enabled": true,
-      "token_rotation_enabled": false
+    "event_subscriptions": {
+      "bot_events": [
+        "assistant_thread_context_changed",
+        "assistant_thread_started",
+        "message.im"
+      ]
+    },
+    "interactivity": {
+      "is_enabled": false
+    },
+    "org_deploy_enabled": false,
+    "socket_mode_enabled": true,
+    "token_rotation_enabled": false
   }
 }
