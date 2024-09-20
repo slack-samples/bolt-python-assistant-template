@@ -32,7 +32,14 @@ app = App(
     oauth_settings=OAuthSettings(
         client_id=os.environ.get("SLACK_CLIENT_ID"),
         client_secret=os.environ.get("SLACK_CLIENT_SECRET"),
-        scopes=["channels:history", "chat:write", "commands"],
+        scopes=[
+            "assistant:write",
+            "im:history",
+            "chat:write",
+            "channels:join",  # required only for the channel summary
+            "channels:history",  # required only for the channel summary
+            "groups:history",  # required only for the channel summary
+        ],
         user_scopes=[],
         redirect_uri=None,
         install_path="/slack/install",

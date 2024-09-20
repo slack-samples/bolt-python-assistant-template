@@ -30,6 +30,8 @@ def respond_to_user_message(
             status="is typing...",
         )
         if user_message == "Can you generate a brief summary of the referred channel?":
+            # the logic here requires the additional bot scopes:
+            # channels:join, channels:history, groups:history
             referred_channel_id = thread_context.get("channel_id")
             try:
                 channel_history = client.conversations_history(
