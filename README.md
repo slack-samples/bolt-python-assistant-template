@@ -1,6 +1,6 @@
 # Agent & Assistant Sample (Bolt for Python)
 
-This is a Bolt for Python sample app demonstrates how to use [Agents & Assistants](https://api.slack.com/docs/apps/ai) in Slack.
+This Bolt for Python sample app demonstrates how to use [Agents & Assistants](https://api.slack.com/docs/apps/ai) in Slack.
 
 Before getting started, make sure you have a development workspace where you have permissions to install apps. If you don’t have one setup, go ahead and [create one](https://slack.com/create).
 ## Installation
