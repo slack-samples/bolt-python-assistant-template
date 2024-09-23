@@ -1,4 +1,4 @@
-# Agent & Assistant Sample (Bolt for Python)
+# App Assistant Sample (Bolt for Python)
 
 This Bolt for Python sample app demonstrates how to use [Agents & Assistants](https://api.slack.com/docs/apps/ai) in Slack.
 
@@ -29,10 +29,10 @@ export OPENAI_API_KEY=<your-openai-api-key>
 ### Setup Your Local Project
 ```zsh
 # Clone this project onto your machine
-git clone https://github.com/slack-samples/bolt-python-agent-assistant.git
+git clone https://github.com/slack-samples/bolt-python-app-assistant.git
 
 # Change into this project directory
-cd bolt-python-agent-assistant
+cd bolt-python-app-assistant
 
 # Setup your python virtual environment
 python3 -m venv .venv
