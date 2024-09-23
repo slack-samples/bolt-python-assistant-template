@@ -2,7 +2,12 @@
 
 This Bolt for Python sample app demonstrates how to use [Agents & Assistants](https://api.slack.com/docs/apps/ai) in Slack.
 
+## Setup
 Before getting started, make sure you have a development workspace where you have permissions to install apps. If you don’t have one setup, go ahead and [create one](https://slack.com/create).
+
+### Developer Program
+Join the [Slack Developer Program](https://api.slack.com/developer-program) for exclusive access to sandbox environments for building and testing your apps, tooling, and resources created to help you build and grow.
+
 ## Installation
 
 #### Create a Slack App
@@ -15,8 +20,8 @@ Before getting started, make sure you have a development workspace where you hav
 #### Environment Variables
 Before you can run the app, you'll need to store some environment variables.
 
-1. Open your apps configuration page from this list, click **OAuth & Permissions** in the left hand menu, then copy the Bot User OAuth Token. You will store this in your environment as `SLACK_BOT_TOKEN`.
-2. Click ***Basic Information** from the left hand menu and follow the steps in the App-Level Tokens section to create an app-level token with the `connections:write` scope. Copy this token. You will store this in your environment as `SLACK_APP_TOKEN`.
+1. Open your app configuration page from this list, click **OAuth & Permissions** in the left hand menu, then copy the Bot User OAuth Token. You will store this in your environment as `SLACK_BOT_TOKEN`.
+2. Click **Basic Information** from the left hand menu and follow the steps in the App-Level Tokens section to create an app-level token with the `connections:write` scope. Copy this token. You will store this in your environment as `SLACK_APP_TOKEN`.
 
 ```zsh
 # Replace with your app token and bot token
@@ -66,7 +71,7 @@ black .
 
 ### `/listeners`
 
-Every incoming request is routed to a "listener". Inside this directory, we group each listener based on the Slack Platform feature used, so `/listeners/shortcuts` handles incoming [Shortcuts](https://api.slack.com/interactivity/shortcuts) requests, `/listeners/views` handles [View submissions](https://api.slack.com/reference/interaction-payloads/views#view_submission) and so on.
+Every incoming request is routed to a "listener". Inside this directory, we group each listener based on the Slack Platform feature used, so `/listeners/events` handles incoming events, `/listeners/shortcuts` would handle incoming [Shortcuts](https://api.slack.com/interactivity/shortcuts) requests, and so on.
 
 ## App Distribution / OAuth
 
