@@ -1,6 +1,6 @@
-# Bolt for Python Template App
+# App Assistant Sample (Bolt for Python)
 
-This is a generic Bolt for Python template app used to build out Slack apps.
+This Bolt for Python sample app demonstrates how to use [Agents & Assistants](https://api.slack.com/docs/apps/ai) in Slack.
 
 Before getting started, make sure you have a development workspace where you have permissions to install apps. If you don’t have one setup, go ahead and [create one](https://slack.com/create).
 ## Installation
@@ -22,15 +22,17 @@ Before you can run the app, you'll need to store some environment variables.
 # Replace with your app token and bot token
 export SLACK_BOT_TOKEN=<your-bot-token>
 export SLACK_APP_TOKEN=<your-app-token>
+# This sample uses OpenAI's API by default, but you can switch to any other solution!
+export OPENAI_API_KEY=<your-openai-api-key>
 ```
 
 ### Setup Your Local Project
 ```zsh
 # Clone this project onto your machine
-git clone https://github.com/slack-samples/bolt-python-starter-template.git
+git clone https://github.com/slack-samples/bolt-python-app-assistant.git
 
 # Change into this project directory
-cd bolt-python-starter-template
+cd bolt-python-app-assistant
 
 # Setup your python virtual environment
 python3 -m venv .venv
