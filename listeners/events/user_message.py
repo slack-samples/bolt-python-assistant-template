@@ -51,7 +51,7 @@ def respond_to_user_message(
                     raise e
 
             prompt = f"Can you generate a brief summary of these messages in a Slack channel <#{referred_channel_id}>?\n\n"
-            for message in channel_history.get("messages"):
+            for message in reversed(channel_history.get("messages")):
                 if message.get("user") is not None:
                     prompt += f"\n<@{message['user']}> says: {message['text']}\n"
             messages_in_thread = [{"role": "user", "content": prompt}]
