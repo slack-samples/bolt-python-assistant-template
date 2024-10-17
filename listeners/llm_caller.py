@@ -13,7 +13,10 @@ When a prompt has Slack's special syntax like <@USER_ID> or <#CHANNEL_ID>, you m
 """
 
 
-def call_llm(messages_in_thread: List[Dict[str, str]], system_content: str = DEFAULT_SYSTEM_CONTENT) -> str:
+def call_llm(
+    messages_in_thread: List[Dict[str, str]],
+    system_content: str = DEFAULT_SYSTEM_CONTENT,
+) -> str:
     openai_client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
     messages = [{"role": "system", "content": system_content}]
     messages.extend(messages_in_thread)
