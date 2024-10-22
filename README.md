@@ -25,6 +25,7 @@ Before you can run the app, you'll need to store some environment variables.
 
 ```zsh
 # Replace with your app token and bot token
+# For Windows OS, env:SLACK_BOT_TOKEN = <your-bot-token> works
 export SLACK_BOT_TOKEN=<your-bot-token>
 export SLACK_APP_TOKEN=<your-app-token>
 # This sample uses OpenAI's API by default, but you can switch to any other solution!
