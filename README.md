@@ -41,7 +41,7 @@ cd bolt-python-assistant-template
 
 # Setup your python virtual environment
 python3 -m venv .venv
-source .venv/bin/activate
+source .venv/bin/activate  # for Windows OS, .\.venv\Scripts\Activate instead should work
 
 # Install the dependencies
 pip install -r requirements.txt
