@@ -40,7 +40,7 @@
     "interactivity": {
       "is_enabled": false
     },
-    "org_deploy_enabled": false,
+    "org_deploy_enabled": true,
     "socket_mode_enabled": true,
     "token_rotation_enabled": false
   }
