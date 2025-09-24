@@ -86,7 +86,7 @@ def respond_in_assistant_thread(
 
         returned_message = call_llm(messages_in_thread)
         set_status(
-            status="Bolt is typing",
+            status="Drafting...",
             loading_messages=loading_messages,
         )
         stream_response = client.chat_startStream(
