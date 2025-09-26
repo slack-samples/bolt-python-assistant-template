@@ -1,9 +1,11 @@
-from listeners.assistant import assistant
+from listeners import actions
+from listeners import assistant
 
 
 def register_listeners(app):
-    # Using assistant middleware is the recommended way.
-    app.assistant(assistant)
+
+    actions.register(app)
+    assistant.register(app)
 
     # The following event listeners demonstrate how to implement the same on your own.
     # from listeners import events

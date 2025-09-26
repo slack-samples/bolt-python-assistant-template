@@ -51,6 +51,8 @@ pip install -r requirements.txt
 python3 app.py
 ```
 
+Start talking to the bot! Start a new DM or thread and click the feedback button when it responds.
+
 #### Linting
 ```zsh
 # Run flake8 from root directory for linting
@@ -74,8 +76,8 @@ black .
 
 Every incoming request is routed to a "listener". This directory groups each listener based on the Slack Platform feature used, so `/listeners/events` handles incoming events, `/listeners/shortcuts` would handle incoming [Shortcuts](https://docs.slack.dev/interactivity/implementing-shortcuts/) requests, and so on.
 
-:::info[The `listeners/events` folder is purely educational and demonstrates alternative approaches to implementation] 
-These listeners are **not registered** and are not used in the actual application. For the working implementation, refer to `listeners/assistant.py`.
+> [!NOTE] 
+> The `listeners/events` folder is purely educational and demonstrates alternative approaches to implementation. These listeners are **not registered** and are not used in the actual application. For the working implementation, refer to `listeners/assistant/assistant.py`.
 
 **`/listeners/assistant`**
 

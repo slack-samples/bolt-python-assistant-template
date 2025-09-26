@@ -1,3 +1,6 @@
+from slack_bolt import App
 from .assistant import assistant
 
-__all__ = ["assistant"]
+
+def register(app: App):
+    app.assistant(assistant)
