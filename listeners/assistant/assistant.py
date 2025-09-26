@@ -1,13 +1,10 @@
 import logging
 from typing import Dict, List
 
-from slack_bolt import (Assistant, BoltContext, Say, SetStatus,
-                        SetSuggestedPrompts)
+from slack_bolt import Assistant, BoltContext, Say, SetStatus, SetSuggestedPrompts
 from slack_bolt.context.get_thread_context import GetThreadContext
 from slack_sdk import WebClient
-from slack_sdk.models.blocks import (Block, ContextActionsBlock,
-                                     FeedbackButtonObject,
-                                     FeedbackButtonsElement)
+from slack_sdk.models.blocks import Block, ContextActionsBlock, FeedbackButtonObject, FeedbackButtonsElement
 
 from ..llm_caller import call_llm
 
