@@ -95,17 +95,15 @@ def respond_in_assistant_thread(
         channel_id = payload["channel"]
         thread_ts = payload["thread_ts"]
 
-        loading_messages = [
-            "Teaching the hamsters to type faster…",
-            "Untangling the internet cables…",
-            "Consulting the office goldfish…",
-            "Polishing up the response just for you…",
-            "Convincing the AI to stop overthinking…",
-        ]
-
         set_status(
             status="Drafting...",
-            loading_messages=loading_messages,
+            loading_messages=[
+                "Teaching the hamsters to type faster…",
+                "Untangling the internet cables…",
+                "Consulting the office goldfish…",
+                "Polishing up the response just for you…",
+                "Convincing the AI to stop overthinking…",
+            ],
         )
 
         replies = client.conversations_replies(
@@ -120,6 +118,7 @@ def respond_in_assistant_thread(
             messages_in_thread.append({"role": role, "content": message["text"]})
 
         returned_message = call_llm(messages_in_thread)
+
         stream_response = client.chat_startStream(
             channel=channel_id,
             thread_ts=thread_ts,
