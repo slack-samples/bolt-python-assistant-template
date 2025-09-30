@@ -14,8 +14,8 @@ and generates an AI response if text is provided, otherwise sends a default resp
 """
 
 
-def assistant_mentioned_callback(
-    client: WebClient, event: dict, get_thread_context: GetThreadContext, logger: Logger, say: Say
+def app_mentioned_callback(
+    client: WebClient, event: dict, logger: Logger, say: Say
 ):
     try:
 

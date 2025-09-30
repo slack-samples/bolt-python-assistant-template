@@ -76,9 +76,6 @@ black .
 
 Every incoming request is routed to a "listener". This directory groups each listener based on the Slack Platform feature used, so `/listeners/events` handles incoming events, `/listeners/shortcuts` would handle incoming [Shortcuts](https://docs.slack.dev/interactivity/implementing-shortcuts/) requests, and so on.
 
-> [!NOTE] 
-> The `listeners/events` folder is purely educational and demonstrates alternative approaches to implementation. These listeners are **not registered** and are not used in the actual application. For the working implementation, refer to `listeners/assistant/assistant.py`.
-
 **`/listeners/assistant`**
 
 Configures the new Slack Assistant features, providing a dedicated side panel UI for users to interact with the AI chatbot. This module includes:
