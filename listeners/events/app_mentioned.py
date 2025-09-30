@@ -6,8 +6,8 @@ from ..llm_caller import call_llm
 from ..views.feedback_block import create_feedback_block
 
 """
-Handles the event when the app is mentioned in a Slack channel, retrieves the conversation context,
-and generates an AI response if text is provided, otherwise sends a default response
+Handles the event when the app is mentioned in a Slack conversation
+and generates an AI response.
 """
 
 
