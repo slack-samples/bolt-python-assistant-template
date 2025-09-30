@@ -1,6 +1,7 @@
 import logging
-from typing import List, Dict
-from slack_bolt import Assistant, BoltContext, Say, SetSuggestedPrompts
+from typing import Dict, List
+
+from slack_bolt import Assistant, BoltContext, Say, SetStatus, SetSuggestedPrompts
 from slack_bolt.context.get_thread_context import GetThreadContext
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
@@ -57,12 +58,13 @@ def start_assistant_thread(
 # This listener is invoked when the human user sends a reply in the assistant thread
 @assistant.user_message
 def respond_in_assistant_thread(
-    payload: dict,
-    logger: logging.Logger,
+    client: WebClient,
     context: BoltContext,
     get_thread_context: GetThreadContext,
-    client: WebClient,
+    logger: logging.Logger,
+    payload: dict,
     say: Say,
+    set_status: SetStatus,
 ):
     try:
         channel_id = payload["channel"]
@@ -70,6 +72,17 @@ def respond_in_assistant_thread(
         thread_ts = payload["thread_ts"]
         user_id = payload["user"]
         user_message = payload["text"]
+
+        set_status(
+            status="Drafting...",
+            loading_messages=[
+                "Teaching the hamsters to type faster…",
+                "Untangling the internet cables…",
+                "Consulting the office goldfish…",
+                "Polishing up the response just for you…",
+                "Convincing the AI to stop overthinking…",
+            ],
+        )
 
         if user_message == "Can you generate a brief summary of the referred channel?":
             # the logic here requires the additional bot scopes:
@@ -105,10 +118,6 @@ def respond_in_assistant_thread(
                 messages_in_thread.append({"role": role, "content": message["text"]})
 
         returned_message = call_llm(messages_in_thread)
-
-        client.assistant_threads_setStatus(
-            channel_id=channel_id, thread_ts=thread_ts, status="Bolt is typing", loading_messages=loading_messages
-        )
 
         stream_response = client.chat_startStream(
             channel=channel_id,
