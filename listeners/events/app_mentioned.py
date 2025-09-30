@@ -1,7 +1,6 @@
 from logging import Logger
 from slack_sdk import WebClient
 from slack_bolt import Say
-from slack_bolt.context.get_thread_context import GetThreadContext
 from typing import List, Dict
 
 from ..llm_caller import call_llm
@@ -14,9 +13,7 @@ and generates an AI response if text is provided, otherwise sends a default resp
 """
 
 
-def app_mentioned_callback(
-    client: WebClient, event: dict, logger: Logger, say: Say
-):
+def app_mentioned_callback(client: WebClient, event: dict, logger: Logger, say: Say):
     try:
 
         channel_id = event.get("channel")
