@@ -73,7 +73,7 @@ def respond_in_assistant_thread(
         user_message = payload["text"]
 
         set_status(
-            status="Drafting...",
+            status="thinking...",
             loading_messages=[
                 "Teaching the hamsters to type faster…",
                 "Untangling the internet cables…",
