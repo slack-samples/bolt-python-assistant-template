@@ -20,12 +20,15 @@
   "oauth_config": {
     "scopes": {
       "bot": [
+        "app_mentions:read",
         "assistant:write",
         "channels:join",
         "im:history",
         "channels:history",
+        "channels:read",
         "groups:history",
-        "chat:write"
+        "chat:write",
+        "users:read"
       ]
     }
   },
@@ -34,7 +37,9 @@
       "bot_events": [
         "assistant_thread_context_changed",
         "assistant_thread_started",
-        "message.im"
+        "message.im",
+        "app_mention",
+        "message.channels"
       ]
     },
     "interactivity": {
