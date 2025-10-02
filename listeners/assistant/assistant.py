@@ -118,23 +118,22 @@ def respond_in_assistant_thread(
 
         returned_message = call_llm(messages_in_thread)
 
-        stream_response = client.chat_startStream(
+        streamer = client.chat_stream(
             channel=channel_id,
             recipient_team_id=team_id,
             recipient_user_id=user_id,
             thread_ts=thread_ts,
         )
-        stream_ts = stream_response["ts"]
 
         # use of this for loop is specific to openai response method
         for event in returned_message:
             if event.type == "response.output_text.delta":
-                client.chat_appendStream(channel=channel_id, ts=stream_ts, markdown_text=f"{event.delta}")
+                streamer.append(markdown_text=f"{event.delta}")
             else:
                 continue
 
         feedback_block = create_feedback_block()
-        client.chat_stopStream(channel=channel_id, ts=stream_ts, blocks=feedback_block)
+        streamer.stop(blocks=feedback_block)
 
     except Exception as e:
         logger.exception(f"Failed to handle a user message event: {e}")
