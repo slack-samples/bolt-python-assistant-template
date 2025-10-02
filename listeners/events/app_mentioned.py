@@ -41,7 +41,8 @@ def app_mentioned_callback(client: WebClient, event: dict, logger: Logger, say: 
             thread_ts=thread_ts,
         )
 
-        # use of this for loop is specific to openai response method
+        # Loop over OpenAI response stream
+        # https://platform.openai.com/docs/api-reference/responses/create
         for event in returned_message:
             if event.type == "response.output_text.delta":
                 streamer.append(markdown_text=f"{event.delta}")
