@@ -1,6 +1,6 @@
 {
   "display_information": {
-    "name": "Bolt Python Assistant"
+    "name": "Bolt Python Agent"
   },
   "features": {
     "app_home": {
@@ -9,11 +9,11 @@
       "messages_tab_read_only_enabled": false
     },
     "bot_user": {
-      "display_name": "Bolt Python Assistant",
+      "display_name": "Bolt Python Agent",
       "always_online": false
     },
     "assistant_view": {
-      "assistant_description": "Hi, I am an assistant built using Bolt for Python. I am here to help you out!",
+      "assistant_description": "Hi, I am an agent built using Bolt for Python. I am here to help you out!",
       "suggested_prompts": []
     }
   },
