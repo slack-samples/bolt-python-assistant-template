@@ -1,6 +1,7 @@
 from logging import Logger
-from slack_sdk import WebClient
+
 from slack_bolt import Say
+from slack_sdk import WebClient
 
 from ..llm_caller import call_llm
 from ..views.feedback_block import create_feedback_block

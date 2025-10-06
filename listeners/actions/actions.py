@@ -1,7 +1,10 @@
-import logging
+from logging import Logger
+
+from slack_bolt import Ack
+from slack_sdk import WebClient
 
 
-def handle_feedback(ack, body, client, logger: logging.Logger):
+def handle_feedback(ack: Ack, body: dict, client: WebClient, logger: Logger):
     """
     Handles user feedback on AI-generated responses via thumbs up/down buttons.
 
