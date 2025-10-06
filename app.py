@@ -9,9 +9,8 @@ from slack_sdk import WebClient
 
 from listeners import register_listeners
 
-
 # Load environment variables
-load_dotenv()
+load_dotenv(dotenv_path=".env", override=False)
 
 # Initialization
 logging.basicConfig(level=logging.DEBUG)
