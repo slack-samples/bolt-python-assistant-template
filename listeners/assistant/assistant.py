@@ -67,9 +67,9 @@ def respond_in_assistant_thread(
 ):
     try:
         channel_id = payload["channel"]
-        team_id = payload["team"]
+        team_id = context.team_id
         thread_ts = payload["thread_ts"]
-        user_id = payload["user"]
+        user_id = context.user_id
         user_message = payload["text"]
 
         set_status(
