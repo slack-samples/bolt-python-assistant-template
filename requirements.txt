@@ -7,4 +7,4 @@ openai
 pytest
 flake8
 black
-python-dotenv
+python-dotenv==1.1.1
