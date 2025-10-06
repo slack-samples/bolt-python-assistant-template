@@ -1,4 +1,4 @@
-import logging
+from logging import Logger
 from typing import Dict, List
 
 from slack_bolt import Assistant, BoltContext, Say, SetStatus, SetSuggestedPrompts
@@ -6,9 +6,9 @@ from slack_bolt.context.get_thread_context import GetThreadContext
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 
-from ..views.feedback_block import create_feedback_block
 from ai.llm_caller import call_llm
 
+from ..views.feedback_block import create_feedback_block
 
 # Refer to https://tools.slack.dev/bolt-python/concepts/assistant/ for more details
 assistant = Assistant()
@@ -19,7 +19,7 @@ def start_assistant_thread(
     say: Say,
     get_thread_context: GetThreadContext,
     set_suggested_prompts: SetSuggestedPrompts,
-    logger: logging.Logger,
+    logger: Logger,
 ):
     """
     Handle the assistant thread start event by greeting the user and setting suggested prompts.
@@ -68,7 +68,7 @@ def respond_in_assistant_thread(
     client: WebClient,
     context: BoltContext,
     get_thread_context: GetThreadContext,
-    logger: logging.Logger,
+    logger: Logger,
     payload: dict,
     say: Say,
     set_status: SetStatus,
