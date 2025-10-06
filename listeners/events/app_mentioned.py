@@ -6,7 +6,6 @@ from ..llm_caller import call_llm
 from ..views.feedback_block import create_feedback_block
 
 
-
 def app_mentioned_callback(client: WebClient, event: dict, logger: Logger, say: Say):
     """
     Handles the event when the app is mentioned in a Slack conversation

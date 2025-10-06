@@ -8,7 +8,7 @@ def handle_feedback(ack, body, client, logger: logging.Logger):
     Args:
         ack: Function to acknowledge the action request
         body: Action payload containing feedback details (message, channel, user, action value)
-        client: Slack WebClient for making API calls 
+        client: Slack WebClient for making API calls
         logger: Logger instance for debugging and error tracking
     """
     try:
