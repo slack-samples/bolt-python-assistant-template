@@ -7,7 +7,7 @@ from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 
 from ..views.feedback_block import create_feedback_block
-from ..llm_caller import call_llm
+from ai.llm_caller import call_llm
 
 
 # Refer to https://tools.slack.dev/bolt-python/concepts/assistant/ for more details
