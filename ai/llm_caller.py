@@ -1,10 +1,9 @@
 import os
-from typing import List, Dict
+from typing import Dict, List
 
 import openai
 from openai import Stream
 from openai.types.responses import ResponseStreamEvent
-
 
 DEFAULT_SYSTEM_CONTENT = """
 You're an assistant in a Slack workspace.

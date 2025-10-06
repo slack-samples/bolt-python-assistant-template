@@ -1,4 +1,4 @@
-import logging
+from logging import Logger
 from typing import Dict, List
 
 from slack_bolt import Assistant, BoltContext, Say, SetStatus, SetSuggestedPrompts
@@ -6,22 +6,30 @@ from slack_bolt.context.get_thread_context import GetThreadContext
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 
-from ..views.feedback_block import create_feedback_block
 from ai.llm_caller import call_llm
 
+from ..views.feedback_block import create_feedback_block
 
 # Refer to https://tools.slack.dev/bolt-python/concepts/assistant/ for more details
 assistant = Assistant()
 
 
-# This listener is invoked when a human user opened an assistant thread
 @assistant.thread_started
 def start_assistant_thread(
     say: Say,
     get_thread_context: GetThreadContext,
     set_suggested_prompts: SetSuggestedPrompts,
-    logger: logging.Logger,
+    logger: Logger,
 ):
+    """
+    Handle the assistant thread start event by greeting the user and setting suggested prompts.
+
+    Args:
+        say: Function to send messages to the thread from the app
+        get_thread_context: Function to retrieve thread context information
+        set_suggested_prompts: Function to configure suggested prompt options
+        logger: Logger instance for error tracking
+    """
     try:
         say("How can I help you?")
 
@@ -60,11 +68,23 @@ def respond_in_assistant_thread(
     client: WebClient,
     context: BoltContext,
     get_thread_context: GetThreadContext,
-    logger: logging.Logger,
+    logger: Logger,
     payload: dict,
     say: Say,
     set_status: SetStatus,
 ):
+    """
+    Handles when users send messages or select a prompt in an assistant thread and generate AI responses:
+
+    Args:
+        client: Slack WebClient for making API calls
+        context: Bolt context containing channel and thread information
+        get_thread_context: Function to retrieve thread context (e.g., referred channel)
+        logger: Logger instance for error tracking
+        payload: Event payload with message details (channel, user, text, etc.)
+        say: Function to send messages to the thread
+        set_status: Function to update the assistant's status
+    """
     try:
         channel_id = payload["channel"]
         team_id = context.team_id
@@ -84,8 +104,6 @@ def respond_in_assistant_thread(
         )
 
         if user_message == "Can you generate a brief summary of the referred channel?":
-            # the logic here requires the additional bot scopes:
-            # channels:join, channels:history, groups:history
             thread_context = get_thread_context()
             referred_channel_id = thread_context.get("channel_id")
             try:
