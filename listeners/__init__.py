@@ -1,9 +1,9 @@
-from listeners import actions
-from listeners import assistant
-from listeners import events
+from slack_bolt import App
+
+from listeners import actions, assistant, events
 
 
-def register_listeners(app):
+def register_listeners(app: App):
     actions.register(app)
     assistant.register(app)
     events.register(app)
