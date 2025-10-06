@@ -15,7 +15,8 @@ __pycache__/
 env*/
 venv/
 .venv*
-.env
+.env*
+!.env.sample
 
 # codecov / coverage
 .coverage
