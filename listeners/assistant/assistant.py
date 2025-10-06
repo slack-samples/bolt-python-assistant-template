@@ -6,7 +6,6 @@ from slack_bolt.context.get_thread_context import GetThreadContext
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 
-from ..llm_caller import call_llm
 from ..views.feedback_block import create_feedback_block
 from ai.llm_caller import call_llm
 
