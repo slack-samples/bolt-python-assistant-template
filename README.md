@@ -89,7 +89,7 @@ Configures the new Slack Assistant features, providing a dedicated side panel UI
 *  The `@assistant.thread_started` listener receives an event when users start new app thread. 
 *  The `@assistant.user_message` listener processes user messages in app threads or from the app **Chat** and **History** tab.
 
-`llm_caller.py`, which handles OpenAI API integration and message formatting. It includes the `call_llm()` function that sends conversation threads to OpenAI's models.
+`ai/llm_caller.py`, which handles OpenAI API integration and message formatting. It includes the `call_llm()` function that sends conversation threads to OpenAI's models.
 
 ## App Distribution / OAuth
 
