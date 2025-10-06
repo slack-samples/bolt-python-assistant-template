@@ -1,7 +1,3 @@
-# This sample app repository contains event listener code to help developers understand what's happening under the hood.
-# We recommend using assistant middleware instead of these event listeners.
-# For more details, refer to https://tools.slack.dev/bolt-python/concepts/assistant/.
-
 from slack_sdk import WebClient
 from slack_bolt import BoltContext
 

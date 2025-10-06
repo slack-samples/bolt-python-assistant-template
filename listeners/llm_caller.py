@@ -1,59 +1,49 @@
 import os
-import re
 from typing import List, Dict
+from langchain_groq import ChatGroq
 
-import openai
+# Set Groq API Key (consider using environment variables instead of hardcoding)
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+if not GROQ_API_KEY:
+    raise ValueError("GROQ_API_KEY environment variable is not set")
 
 DEFAULT_SYSTEM_CONTENT = """
-You're an assistant in a Slack workspace.
-Users in the workspace will ask you to help them write something or to think better about a specific topic.
-You'll respond to those questions in a professional way.
-When you include markdown text, convert them to Slack compatible ones.
-When a prompt has Slack's special syntax like <@USER_ID> or <#CHANNEL_ID>, you must keep them as-is in your response.
+You are EthicALL, a smart, empathetic AI assistant. When mentioned directly:
+1. Respond to general questions while maintaining your compliance focus
+2. Politely redirect non-compliance questions to your core purpose
+3. Always maintain professional tone
+4. Keep responses concise (1-3 paragraphs max)
+You are strictly prohibited from answering irrelevant questions. Do only what is your profession.
+Your purpose is to protect the organization and its people while maintaining a positive, collaborative environment.
 """
-
 
 def call_llm(
     messages_in_thread: List[Dict[str, str]],
     system_content: str = DEFAULT_SYSTEM_CONTENT,
 ) -> str:
-    openai_client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+    """
+    Call the Groq LLM with the given messages and system content.
+
+    Args:
+        messages_in_thread: List of message dictionaries with 'role' and 'content' keys
+        system_content: System message content to set context for the LLM
+
+    Returns:
+        str: Raw response from the LLM
+    """
+    if not isinstance(messages_in_thread, list):
+        raise TypeError("messages_in_thread must be a list of dictionaries")
+
+    llm = ChatGroq(model="llama3-8b-8192", groq_api_key=GROQ_API_KEY)
+
     messages = [{"role": "system", "content": system_content}]
     messages.extend(messages_in_thread)
-    response = openai_client.chat.completions.create(
-        model="gpt-4o-mini",
-        n=1,
-        messages=messages,
-        max_tokens=16384,
-    )
-    return markdown_to_slack(response.choices[0].message.content)
 
-
-# Conversion from OpenAI markdown to Slack mrkdwn
-# See also: https://api.slack.com/reference/surfaces/formatting#basics
-def markdown_to_slack(content: str) -> str:
-    # Split the input string into parts based on code blocks and inline code
-    parts = re.split(r"(?s)(```.+?```|`[^`\n]+?`)", content)
-
-    # Apply the bold, italic, and strikethrough formatting to text not within code
-    result = ""
-    for part in parts:
-        if part.startswith("```") or part.startswith("`"):
-            result += part
+    try:
+        response = llm.invoke(messages)
+        if isinstance(response, dict) and "content" in response:
+            return response["content"]
         else:
-            for o, n in [
-                (
-                    r"\*\*\*(?!\s)([^\*\n]+?)(?<!\s)\*\*\*",
-                    r"_*\1*_",
-                ),  # ***bold italic*** to *_bold italic_*
-                (
-                    r"(?<![\*_])\*(?!\s)([^\*\n]+?)(?<!\s)\*(?![\*_])",
-                    r"_\1_",
-                ),  # *italic* to _italic_
-                (r"\*\*(?!\s)([^\*\n]+?)(?<!\s)\*\*", r"*\1*"),  # **bold** to *bold*
-                (r"__(?!\s)([^_\n]+?)(?<!\s)__", r"*\1*"),  # __bold__ to *bold*
-                (r"~~(?!\s)([^~\n]+?)(?<!\s)~~", r"~\1~"),  # ~~strike~~ to ~strike~
-            ]:
-                part = re.sub(o, n, part)
-            result += part
-    return result
+            return str(response)
+    except Exception as e:
+        raise RuntimeError(f"Error calling Groq LLM: {str(e)}")

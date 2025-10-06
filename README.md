@@ -1,5 +1,5 @@
-# App Agent & Assistant Template (Bolt for Python)
-
+# EthicAll For Your Slack workspace moderation --> By Abhishek Singh
+You Don't need any more to pay for you OpenAI's API keys-> Just use your free Groq's Inference Tokens and change to your favourite model to work in backend from [here](https://console.groq.com/docs/models) and copy it to listeners/llm_caller.py
 This Bolt for Python template demonstrates how to build [Agents & Assistants](https://api.slack.com/docs/apps/ai) in Slack.
 
 ## Setup
@@ -29,14 +29,13 @@ Before you can run the app, you'll need to store some environment variables.
 export SLACK_BOT_TOKEN=<your-bot-token>
 export SLACK_APP_TOKEN=<your-app-token>
 # This sample uses OpenAI's API by default, but you can switch to any other solution!
-export OPENAI_API_KEY=<your-openai-api-key>
+export GROQ_API_KEY=<your-groq-api-key>
 ```
 
 ### Setup Your Local Project
 ```zsh
 # Clone this project onto your machine
-git clone https://github.com/slack-samples/bolt-python-assistant-template.git
-
+git clone https://github.com/Abhi2april/bolt-python-assistant-template
 # Change into this project directory
 cd bolt-python-assistant-template
 
