@@ -17,20 +17,25 @@ Join the [Slack Developer Program](https://api.slack.com/developer-program) for 
 4. Review the configuration and click *Create*
 5. Click *Install to Workspace* and *Allow* on the screen that follows. You'll then be redirected to the App Configuration dashboard.
 
-#### Environment Variables
+### Environment Variables
+
 Before you can run the app, you'll need to store some environment variables.
 
-1. Open your app configuration page from this list, click **OAuth & Permissions** in the left hand menu, then copy the Bot User OAuth Token. You will store this in your environment as `SLACK_BOT_TOKEN`.
-2. Click **Basic Information** from the left hand menu and follow the steps in the App-Level Tokens section to create an app-level token with the `connections:write` scope. Copy this token. You will store this in your environment as `SLACK_APP_TOKEN`.
 
+1. Rename `.env.sample` to `.env`.
+2. Open your apps setting page from [this list](https://api.slack.com/apps), click _OAuth & Permissions_ in the left hand menu, then copy the _Bot User OAuth Token_ into your `.env` file under `SLACK_BOT_TOKEN`.
 ```zsh
-# Replace with your app token and bot token
-# For Windows OS, env:SLACK_BOT_TOKEN = <your-bot-token> works
-export SLACK_BOT_TOKEN=<your-bot-token>
-export SLACK_APP_TOKEN=<your-app-token>
-# This sample uses OpenAI's API by default, but you can switch to any other solution!
-export OPENAI_API_KEY=<your-openai-api-key>
+SLACK_BOT_TOKEN=YOUR_SLACK_BOT_TOKEN
 ```
+3. Click _Basic Information_ from the left hand menu and follow the steps in the _App-Level Tokens_ section to create an app-level token with the `connections:write` scope. Copy that token into your `.env` as `SLACK_APP_TOKEN`.
+```zsh
+SLACK_APP_TOKEN=YOUR_SLACK_APP_TOKEN
+```
+4. Save your OpenAI key into `.env` under `OPENAI_API_KEY`.
+```zsh
+OPENAI_API_KEY=YOUR_OPEN_API_KEY
+```
+
 
 ### Setup Your Local Project
 ```zsh

@@ -16,6 +16,7 @@ env*/
 venv/
 .venv*
 .env*
+!.env.sample
 
 # codecov / coverage
 .coverage
