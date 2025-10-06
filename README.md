@@ -1,4 +1,4 @@
-# AI App Template (Bolt for Python)
+# AI Agent App Template (Bolt for Python)
 
 This Bolt for Python template demonstrates how to build [AI Apps](https://docs.slack.dev/ai/) in Slack.
 
@@ -86,7 +86,7 @@ Every incoming request is routed to a "listener". This directory groups each lis
 Configures the new Slack Assistant features, providing a dedicated side panel UI for users to interact with the AI chatbot. This module includes:
 
 `assistant.py`, which contains two listeners:
-*  The `@assistant.thread_started` listener receives an event when users start new app thread. 
+*  The `@assistant.thread_started` listener receives an event when users start new app thread.
 *  The `@assistant.user_message` listener processes user messages in app threads or from the app **Chat** and **History** tab.
 
 `ai/llm_caller.py`, which handles OpenAI API integration and message formatting. It includes the `call_llm()` function that sends conversation threads to OpenAI's models.
@@ -97,7 +97,7 @@ Only implement OAuth if you plan to distribute your application across multiple 
 
 When using OAuth, Slack requires a public URL where it can send requests. In this template app, we've used [`ngrok`](https://ngrok.com/download). Checkout [this guide](https://ngrok.com/docs#getting-started-expose) for setting it up.
 
-Start `ngrok` to access the app on an external network and create a redirect URL for OAuth. 
+Start `ngrok` to access the app on an external network and create a redirect URL for OAuth.
 
 ```
 ngrok http 3000
