@@ -1,8 +1,16 @@
 import logging
 
 
-# Handle feedback buttons (thumbs up/down)
 def handle_feedback(ack, body, client, logger: logging.Logger):
+    """
+    Handles user feedback on AI-generated responses via thumbs up/down buttons.
+
+    Args:
+        ack: Function to acknowledge the action request
+        body: Action payload containing feedback details (message, channel, user, action value)
+        client: Slack WebClient for making API calls 
+        logger: Logger instance for debugging and error tracking
+    """
     try:
         ack()
         message_ts = body["message"]["ts"]

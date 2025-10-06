@@ -5,13 +5,19 @@ from slack_bolt import Say
 from ..llm_caller import call_llm
 from ..views.feedback_block import create_feedback_block
 
-"""
-Handles the event when the app is mentioned in a Slack conversation
-and generates an AI response.
-"""
 
 
 def app_mentioned_callback(client: WebClient, event: dict, logger: Logger, say: Say):
+    """
+    Handles the event when the app is mentioned in a Slack conversation
+    and generates an AI response.
+
+    Args:
+        client: Slack WebClient for making API calls
+        event: Event payload containing mention details (channel, user, text, etc.)
+        logger: Logger instance for error tracking
+        say: Function to send messages to the thread from the app
+    """
     try:
         channel_id = event.get("channel")
         team_id = event.get("team")

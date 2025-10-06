@@ -14,7 +14,6 @@ from ..llm_caller import call_llm
 assistant = Assistant()
 
 
-# This listener is invoked when a human user opened an assistant thread
 @assistant.thread_started
 def start_assistant_thread(
     say: Say,
@@ -22,6 +21,15 @@ def start_assistant_thread(
     set_suggested_prompts: SetSuggestedPrompts,
     logger: logging.Logger,
 ):
+    """
+    Handle the assistant thread start event by greeting the user and setting suggested prompts.
+
+    Args:
+        say: Function to send messages to the thread from the app
+        get_thread_context: Function to retrieve thread context information
+        set_suggested_prompts: Function to configure suggested prompt options
+        logger: Logger instance for error tracking
+    """
     try:
         say("How can I help you?")
 
@@ -65,6 +73,18 @@ def respond_in_assistant_thread(
     say: Say,
     set_status: SetStatus,
 ):
+    """
+    Handles when users send messages or select a prompt in an assistant thread and generate AI responses:
+
+    Args:
+        client: Slack WebClient for making API calls
+        context: Bolt context containing channel and thread information
+        get_thread_context: Function to retrieve thread context (e.g., referred channel)
+        logger: Logger instance for error tracking
+        payload: Event payload with message details (channel, user, text, etc.)
+        say: Function to send messages to the thread
+        set_status: Function to update the assistant's status
+    """
     try:
         channel_id = payload["channel"]
         team_id = payload["team"]
@@ -84,8 +104,6 @@ def respond_in_assistant_thread(
         )
 
         if user_message == "Can you generate a brief summary of the referred channel?":
-            # the logic here requires the additional bot scopes:
-            # channels:join, channels:history, groups:history
             thread_context = get_thread_context()
             referred_channel_id = thread_context.get("channel_id")
             try:
