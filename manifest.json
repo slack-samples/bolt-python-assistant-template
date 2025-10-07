@@ -22,13 +22,9 @@
       "bot": [
         "app_mentions:read",
         "assistant:write",
-        "channels:join",
         "im:history",
-        "channels:history",
         "channels:read",
-        "groups:history",
-        "chat:write",
-        "users:read"
+        "chat:write"
       ]
     }
   },
@@ -38,8 +34,7 @@
         "assistant_thread_context_changed",
         "assistant_thread_started",
         "message.im",
-        "app_mention",
-        "message.channels"
+        "app_mention"
       ]
     },
     "interactivity": {
