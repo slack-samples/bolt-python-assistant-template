@@ -21,5 +21,7 @@ def call_llm(
     openai_client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
     messages = [{"role": "system", "content": system_content}]
     messages.extend(messages_in_thread)
-    response = openai_client.responses.create(model="gpt-4o-mini", input=messages, stream=True)
+    response = openai_client.responses.create(
+        model="gpt-4o-mini", input=messages, stream=True
+    )
     return response

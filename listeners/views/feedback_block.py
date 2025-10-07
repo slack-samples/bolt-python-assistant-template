@@ -1,6 +1,11 @@
 from typing import List
 
-from slack_sdk.models.blocks import Block, ContextActionsBlock, FeedbackButtonObject, FeedbackButtonsElement
+from slack_sdk.models.blocks import (
+    Block,
+    ContextActionsBlock,
+    FeedbackButtonObject,
+    FeedbackButtonsElement,
+)
 
 
 def create_feedback_block() -> List[Block]:
