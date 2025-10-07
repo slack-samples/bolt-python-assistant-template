@@ -34,8 +34,7 @@
         "assistant_thread_context_changed",
         "assistant_thread_started",
         "message.im",
-        "app_mention",
-        "message.channels"
+        "app_mention"
       ]
     },
     "interactivity": {
