@@ -61,7 +61,7 @@ Start talking to the bot! Start a new DM or thread and click the feedback button
 #### Linting
 ```zsh
 # Run ruff check from root directory for linting
-ruff check .
+ruff check
 
 # Run ruff format from root directory for code formatting
 ruff format .
