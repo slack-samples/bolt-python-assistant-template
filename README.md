@@ -64,7 +64,7 @@ Start talking to the bot! Start a new DM or thread and click the feedback button
 ruff check
 
 # Run ruff format from root directory for code formatting
-ruff format .
+ruff format
 ```
 
 ## Project Structure
