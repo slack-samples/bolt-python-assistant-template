@@ -9,7 +9,7 @@ from ai.llm_caller import call_llm
 from ..views.feedback_block import create_feedback_block
 
 
-def respond_in_assistant_thread(
+def message(
     client: WebClient,
     context: BoltContext,
     logger: Logger,

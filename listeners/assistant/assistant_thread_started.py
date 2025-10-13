@@ -4,7 +4,7 @@ from typing import Dict, List
 from slack_bolt import Say, SetSuggestedPrompts
 
 
-def start_assistant_thread(
+def assistant_thread_started(
     say: Say,
     set_suggested_prompts: SetSuggestedPrompts,
     logger: Logger,
