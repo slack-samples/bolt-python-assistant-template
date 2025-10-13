@@ -8,7 +8,7 @@ from .message import respond_in_assistant_thread
 def register(app: App):
     assistant = Assistant()
 
-    assistant.thread_started(start_assistant_thread)
-    assistant.user_message(respond_in_assistant_thread)
+    assistant.thread_started(assistant_thread_started)
+    assistant.user_message(message)
 
     app.assistant(assistant)
