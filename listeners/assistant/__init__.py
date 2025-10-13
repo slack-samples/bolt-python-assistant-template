@@ -4,7 +4,7 @@ from .assistant_thread_started import start_assistant_thread
 from .message import respond_in_assistant_thread
 
 
-# Refer to https://tools.slack.dev/bolt-python/concepts/assistant/ for more details on the Assistant class
+# Refer to https://docs.slack.dev/tools/bolt-python/concepts/ai-apps#assistant for more details on the Assistant class
 def register(app: App):
     assistant = Assistant()
 
