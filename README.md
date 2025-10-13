@@ -89,7 +89,7 @@ Configures the new Slack Assistant features, providing a dedicated side panel UI
 - The `message.py` file, which responds to user messages sent to app threads or from the **Chat** and **History** tab with an LLM generated response.
 
 ### `ai/`
-`llm_caller.py`, which handles OpenAI API integration and message formatting. It includes the `call_llm()` function that sends conversation threads to OpenAI's models.
+The `llm_caller.py` file, which handles OpenAI API integration and message formatting. It includes the `call_llm()` function that sends conversation threads to OpenAI's models.
 
 ## App Distribution / OAuth
 
