@@ -85,11 +85,8 @@ Every incoming request is routed to a "listener". This directory groups each lis
 
 Configures the new Slack Assistant features, providing a dedicated side panel UI for users to interact with the AI chatbot. This module includes:
 
-`assistant_thread_started.py`, which contains:
-*  The `@assistant.thread_started` listener receives an event when users start new app thread.
-
-`message.py`, which contains:
-*  The `@assistant.user_message` listener processes user messages in app threads or from the app **Chat** and **History** tab.
+- The `assistant_thread_started.py` file, which responds to new app threads with a list of suggested prompts.
+- The `message.py` file, which responds to user messages sent to app threads or from the **Chat** and **History** tab with an LLM generated response.
 
 ### `ai/`
 `llm_caller.py`, which handles OpenAI API integration and message formatting. It includes the `call_llm()` function that sends conversation threads to OpenAI's models.
