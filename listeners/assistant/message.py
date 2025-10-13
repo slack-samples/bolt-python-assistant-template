@@ -9,7 +9,6 @@ from ai.llm_caller import call_llm
 from ..views.feedback_block import create_feedback_block
 
 
-# This listener is invoked when the human user sends a reply in the assistant thread
 def respond_in_assistant_thread(
     client: WebClient,
     context: BoltContext,
