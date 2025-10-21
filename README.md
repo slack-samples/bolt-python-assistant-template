@@ -10,12 +10,53 @@ Join the [Slack Developer Program](https://api.slack.com/developer-program) for 
 
 ## Installation
 
-#### Create a Slack App
+### Using Slack CLI
+
+Install the latest version of the Slack CLI for your operating system:
+
+- [Slack CLI for macOS & Linux](https://docs.slack.dev/tools/slack-cli/guides/installing-the-slack-cli-for-mac-and-linux/)
+- [Slack CLI for Windows](https://docs.slack.dev/tools/slack-cli/guides/installing-the-slack-cli-for-windows/)
+
+You'll also need to log in if this is your first time using the Slack CLI.
+
+```sh
+slack login
+```
+#### Initializing the project
+
+```sh
+# Clone this project onto your machine
+git clone https://github.com/slack-samples/bolt-python-assistant-template.git
+
+# Change into this project directory
+cd bolt-python-assistant-template
+
+# Install the dependencies
+pip install -r requirements.txt
+```
+
+#### Creating the Slack app
+
+```sh
+slack install
+```
+
+#### Running the app
+
+```sh
+slack run
+```
+
+
+<summary><h3>Using Terminal</h3></summary>
+<details>
+
 1. Open [https://api.slack.com/apps/new](https://api.slack.com/apps/new) and choose "From an app manifest"
 2. Choose the workspace you want to install the application to
-3. Copy the contents of [manifest.json](./manifest.json) into the text box that says `*Paste your manifest code here*` (within the JSON tab) and click *Next*
-4. Review the configuration and click *Create*
-5. Click *Install to Workspace* and *Allow* on the screen that follows. You'll then be redirected to the App Configuration dashboard.
+3. Copy the contents of [manifest.json](./manifest.json) into the text box that says `*Paste your manifest code here*` (within the JSON tab) and click _Next_
+4. Review the configuration and click _Create_
+5. Click _Install to Workspace_ and _Allow_ on the screen that follows. You'll then be redirected to the App Configuration dashboard.
+</details>
 
 ### Environment Variables
 
@@ -24,21 +65,21 @@ Before you can run the app, you'll need to store some environment variables.
 
 1. Rename `.env.sample` to `.env`.
 2. Open your apps setting page from [this list](https://api.slack.com/apps), click _OAuth & Permissions_ in the left hand menu, then copy the _Bot User OAuth Token_ into your `.env` file under `SLACK_BOT_TOKEN`.
-```zsh
+```sh
 SLACK_BOT_TOKEN=YOUR_SLACK_BOT_TOKEN
 ```
 3. Click _Basic Information_ from the left hand menu and follow the steps in the _App-Level Tokens_ section to create an app-level token with the `connections:write` scope. Copy that token into your `.env` as `SLACK_APP_TOKEN`.
-```zsh
+```sh
 SLACK_APP_TOKEN=YOUR_SLACK_APP_TOKEN
 ```
 4. Save your OpenAI key into `.env` under `OPENAI_API_KEY`.
-```zsh
+```sh
 OPENAI_API_KEY=YOUR_OPEN_API_KEY
 ```
 
 
 ### Setup Your Local Project
-```zsh
+```sh
 # Clone this project onto your machine
 git clone https://github.com/slack-samples/bolt-python-assistant-template.git
 
@@ -59,7 +100,7 @@ python3 app.py
 Start talking to the bot! Start a new DM or thread and click the feedback button when it responds.
 
 #### Linting
-```zsh
+```sh
 # Run ruff check from root directory for linting
 ruff check
 
