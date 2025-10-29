@@ -2,13 +2,19 @@
 
 This Bolt for Python template demonstrates how to build [AI Apps](https://docs.slack.dev/ai/) in Slack.
 
+Models from [OpenAI](https://openai.com) are used and can be customized for prompts of all kinds.
+
 ## Setup
+
 Before getting started, make sure you have a development workspace where you have permissions to install apps. If you don’t have one setup, go ahead and [create one](https://slack.com/create).
 
 ### Developer Program
+
 Join the [Slack Developer Program](https://api.slack.com/developer-program) for exclusive access to sandbox environments for building and testing your apps, tooling, and resources created to help you build and grow.
 
 ## Installation
+
+Add this app to your workspace using either the Slack CLI or other development tooling, then read ahead to configuring LLM responses in the **[Providers](#providers)** section.
 
 ### Using Slack CLI
 
@@ -22,46 +28,35 @@ You'll also need to log in if this is your first time using the Slack CLI.
 ```sh
 slack login
 ```
+
 #### Initializing the project
 
 ```sh
-# Clone this project onto your machine
-git clone https://github.com/slack-samples/bolt-python-assistant-template.git
-
-# Change into this project directory
-cd bolt-python-assistant-template
-
-# Install the dependencies
-pip install -r requirements.txt
+slack create my-bolt-python-assistant --template slack-samples/bolt-python-assistant-template
+cd my-bolt-python-assistant
 ```
 
 #### Creating the Slack app
+
+Use the following command to add your new Slack app to your development workspace. Choose a "local" app environment for upcoming development:
 
 ```sh
 slack install
 ```
 
-#### Running the app
+After the Slack app has been created you're all set to configure the LLM provider!
 
-```sh
-slack run
-```
-
-
-<summary><h3>Using Terminal</h3></summary>
-<details>
+### Using Terminal
 
 1. Open [https://api.slack.com/apps/new](https://api.slack.com/apps/new) and choose "From an app manifest"
 2. Choose the workspace you want to install the application to
 3. Copy the contents of [manifest.json](./manifest.json) into the text box that says `*Paste your manifest code here*` (within the JSON tab) and click _Next_
 4. Review the configuration and click _Create_
 5. Click _Install to Workspace_ and _Allow_ on the screen that follows. You'll then be redirected to the App Configuration dashboard.
-</details>
 
-### Environment Variables
+#### Environment Variables
 
 Before you can run the app, you'll need to store some environment variables.
-
 
 1. Rename `.env.sample` to `.env`.
 2. Open your apps setting page from [this list](https://api.slack.com/apps), click _OAuth & Permissions_ in the left hand menu, then copy the _Bot User OAuth Token_ into your `.env` file under `SLACK_BOT_TOKEN`.
@@ -72,34 +67,46 @@ SLACK_BOT_TOKEN=YOUR_SLACK_BOT_TOKEN
 ```sh
 SLACK_APP_TOKEN=YOUR_SLACK_APP_TOKEN
 ```
-4. Save your OpenAI key into `.env` under `OPENAI_API_KEY`.
+#### Initializing the project
+
 ```sh
-OPENAI_API_KEY=YOUR_OPEN_API_KEY
+git clone https://github.com/slack-samples/bolt-python-assistant-template.git my-bolt-python-assistant
+cd my-bolt-python-assistant
 ```
 
-
-### Setup Your Local Project
+#### Setup your python virtual environment
 ```sh
-# Clone this project onto your machine
-git clone https://github.com/slack-samples/bolt-python-assistant-template.git
-
-# Change into this project directory
-cd bolt-python-assistant-template
-
-# Setup your python virtual environment
 python3 -m venv .venv
 source .venv/bin/activate  # for Windows OS, .\.venv\Scripts\Activate instead should work
+```
 
-# Install the dependencies
+#### Install dependencies
+```sh
 pip install -r requirements.txt
+```
 
-# Start your local server
+## Providers
+#### OpenAI Setup
+
+Unlock the OpenAI models from your OpenAI account dashboard by clicking [create a new secret key](https://platform.openai.com/api-keys), then save your OpenAI key into the `.env` file as `OPENAI_API_KEY` like so:
+```zsh
+OPENAI_API_KEY=YOUR_OPEN_API_KEY
+```
+### Development
+#### Starting the app
+##### Slack CLI
+```sh
+slack run
+```
+##### Terminal
+```sh
 python3 app.py
 ```
 
 Start talking to the bot! Start a new DM or thread and click the feedback button when it responds.
 
 #### Linting
+
 ```sh
 # Run ruff check from root directory for linting
 ruff check
@@ -126,11 +133,11 @@ Every incoming request is routed to a "listener". This directory groups each lis
 
 Configures the new Slack Assistant features, providing a dedicated side panel UI for users to interact with the AI chatbot. This module includes:
 
-`assistant.py`, which contains two listeners:
-*  The `@assistant.thread_started` listener receives an event when users start new app thread.
-*  The `@assistant.user_message` listener processes user messages in app threads or from the app **Chat** and **History** tab.
+- The `assistant_thread_started.py` file, which responds to new app threads with a list of suggested prompts.
+- The `message.py` file, which responds to user messages sent to app threads or from the **Chat** and **History** tab with an LLM generated response.
 
-`ai/llm_caller.py`, which handles OpenAI API integration and message formatting. It includes the `call_llm()` function that sends conversation threads to OpenAI's models.
+### `ai/`
+The `llm_caller.py` file, which handles OpenAI API integration and message formatting. It includes the `call_llm()` function that sends conversation threads to OpenAI's models.
 
 ## App Distribution / OAuth
 
