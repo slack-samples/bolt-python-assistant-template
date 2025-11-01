@@ -6,4 +6,4 @@ openai
 
 pytest
 ruff==0.14.0
-python-dotenv==1.1.1
+python-dotenv==1.2.1
