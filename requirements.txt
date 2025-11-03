@@ -5,5 +5,5 @@ slack-bolt==1.26.0
 openai
 
 pytest
-ruff==0.14.0
+ruff==0.14.3
 python-dotenv==1.2.1
