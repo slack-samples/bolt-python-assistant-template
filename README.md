@@ -60,13 +60,17 @@ Before you can run the app, you'll need to store some environment variables.
 
 1. Rename `.env.sample` to `.env`.
 2. Open your apps setting page from [this list](https://api.slack.com/apps), click _OAuth & Permissions_ in the left hand menu, then copy the _Bot User OAuth Token_ into your `.env` file under `SLACK_BOT_TOKEN`.
+
 ```sh
 SLACK_BOT_TOKEN=YOUR_SLACK_BOT_TOKEN
 ```
+
 3. Click _Basic Information_ from the left hand menu and follow the steps in the _App-Level Tokens_ section to create an app-level token with the `connections:write` scope. Copy that token into your `.env` as `SLACK_APP_TOKEN`.
+
 ```sh
 SLACK_APP_TOKEN=YOUR_SLACK_APP_TOKEN
 ```
+
 #### Initializing the project
 
 ```sh
@@ -75,37 +79,47 @@ cd my-bolt-python-assistant
 ```
 
 #### Setup your python virtual environment
+
 ```sh
 python3 -m venv .venv
 source .venv/bin/activate  # for Windows OS, .\.venv\Scripts\Activate instead should work
 ```
 
 #### Install dependencies
+
 ```sh
 pip install -r requirements.txt
 ```
 
 ## Providers
-#### OpenAI Setup
+
+### OpenAI Setup
 
 Unlock the OpenAI models from your OpenAI account dashboard by clicking [create a new secret key](https://platform.openai.com/api-keys), then save your OpenAI key into the `.env` file as `OPENAI_API_KEY` like so:
+
 ```zsh
 OPENAI_API_KEY=YOUR_OPEN_API_KEY
 ```
-### Development
-#### Starting the app
-##### Slack CLI
+
+## Development
+
+### Starting the app
+
+#### Slack CLI
+
 ```sh
 slack run
 ```
-##### Terminal
+
+#### Terminal
+
 ```sh
 python3 app.py
 ```
 
 Start talking to the bot! Start a new DM or thread and click the feedback button when it responds.
 
-#### Linting
+### Linting
 
 ```sh
 # Run ruff check from root directory for linting
@@ -136,7 +150,8 @@ Configures the new Slack Assistant features, providing a dedicated side panel UI
 - The `assistant_thread_started.py` file, which responds to new app threads with a list of suggested prompts.
 - The `message.py` file, which responds to user messages sent to app threads or from the **Chat** and **History** tab with an LLM generated response.
 
-### `ai/`
+### `/ai`
+
 The `llm_caller.py` file, which handles OpenAI API integration and message formatting. It includes the `call_llm()` function that sends conversation threads to OpenAI's models.
 
 ## App Distribution / OAuth
