@@ -23,7 +23,6 @@
         "app_mentions:read",
         "assistant:write",
         "im:history",
-        "channels:read",
         "chat:write"
       ]
     }
@@ -31,7 +30,6 @@
   "settings": {
     "event_subscriptions": {
       "bot_events": [
-        "assistant_thread_context_changed",
         "assistant_thread_started",
         "message.im",
         "app_mention"
