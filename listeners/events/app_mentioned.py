@@ -1,3 +1,4 @@
+import asyncio
 from logging import Logger
 
 from slack_bolt import Say
@@ -25,20 +26,18 @@ def app_mentioned_callback(client: WebClient, event: dict, logger: Logger, say: 
         thread_ts = event.get("thread_ts") or event.get("ts")
         user_id = event.get("user")
 
+        # Set initial status with placeholder loading messages
+        # Will be updated dynamically based on agent activity
         client.assistant_threads_setStatus(
             channel_id=channel_id,
             thread_ts=thread_ts,
-            status="thinking...",
-            loading_messages=[
-                "Teaching the hamsters to type faster…",
-                "Untangling the internet cables…",
-                "Consulting the office goldfish…",
-                "Polishing up the response just for you…",
-                "Convincing the AI to stop overthinking…",
-            ],
+            status="is thinking...",
+            loading_messages=["Starting to process your request..."],
         )
 
-        returned_message = call_llm([{"role": "user", "content": text}])
+        # Create event loop for async call
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
 
         streamer = client.chat_stream(
             channel=channel_id,
@@ -47,13 +46,30 @@ def app_mentioned_callback(client: WebClient, event: dict, logger: Logger, say: 
             thread_ts=thread_ts,
         )
 
-        # Loop over OpenAI response stream
-        # https://platform.openai.com/docs/api-reference/responses/create
-        for event in returned_message:
-            if event.type == "response.output_text.delta":
-                streamer.append(markdown_text=f"{event.delta}")
-            else:
-                continue
+        # Stream ADK response with dynamic status updates
+        async def stream_response():
+            async for event in call_llm(
+                [{"role": "user", "content": text}],
+                user_id=user_id,
+                session_id=thread_ts,
+            ):
+                if event["type"] == "status":
+                    # Update the loading message with real-time agent activity
+                    # Keep generic status but show detailed info in loading_messages
+                    logger.info(f"Setting Slack loading message to: {event['text']}")
+                    client.assistant_threads_setStatus(
+                        channel_id=channel_id,
+                        thread_ts=thread_ts,
+                        status="is working...",  # Generic status
+                        loading_messages=[event["text"]],  # Specific detail
+                    )
+                elif event["type"] == "content":
+                    # Stream the actual response content
+                    if event["text"]:
+                        streamer.append(markdown_text=event["text"])
+
+        loop.run_until_complete(stream_response())
+        loop.close()
 
         feedback_block = create_feedback_block()
         streamer.stop(blocks=feedback_block)

@@ -1,8 +1,12 @@
 slack-sdk==3.39.0
 slack-bolt==1.27.0
 
-# If you use a different LLM vendor, replace this dependency
-openai
+# Google ADK for multi-agent system
+google-adk
+google-genai
+
+# LiteLLM for OpenAI model integration with ADK
+litellm
 
 pytest
 ruff==0.14.7

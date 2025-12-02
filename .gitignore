@@ -38,3 +38,4 @@ logs/
 *.db
 .pytype/
 .idea/
+.vscode/
