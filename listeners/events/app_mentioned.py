@@ -4,6 +4,7 @@ from slack_bolt import Say
 from slack_sdk import WebClient
 
 from ai.llm_caller import call_llm
+
 from ..views.feedback_block import create_feedback_block
 
 
@@ -38,7 +39,7 @@ def app_mentioned_callback(client: WebClient, event: dict, logger: Logger, say: 
             ],
         )
 
-        returned_message = call_llm([{"role": "user", "content": text}])
+        returned_message = call_llm(text)
 
         streamer = client.chat_stream(
             channel=channel_id,

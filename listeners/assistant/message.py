@@ -1,8 +1,9 @@
+import time
 from logging import Logger
-from typing import Dict, List
 
 from slack_bolt import BoltContext, Say, SetStatus
 from slack_sdk import WebClient
+from slack_sdk.models.messages.chunk import MarkdownTextChunk, TaskUpdateChunk
 
 from ai.llm_caller import call_llm
 
@@ -13,6 +14,7 @@ def message(
     client: WebClient,
     context: BoltContext,
     logger: Logger,
+    message: dict,
     payload: dict,
     say: Say,
     set_status: SetStatus,
@@ -34,30 +36,6 @@ def message(
         thread_ts = payload["thread_ts"]
         user_id = context.user_id
 
-        set_status(
-            status="thinking...",
-            loading_messages=[
-                "Teaching the hamsters to type faster…",
-                "Untangling the internet cables…",
-                "Consulting the office goldfish…",
-                "Polishing up the response just for you…",
-                "Convincing the AI to stop overthinking…",
-            ],
-        )
-
-        replies = client.conversations_replies(
-            channel=context.channel_id,
-            ts=context.thread_ts,
-            oldest=context.thread_ts,
-            limit=10,
-        )
-        messages_in_thread: List[Dict[str, str]] = []
-        for message in replies["messages"]:
-            role = "user" if message.get("bot_id") is None else "assistant"
-            messages_in_thread.append({"role": role, "content": message["text"]})
-
-        returned_message = call_llm(messages_in_thread)
-
         streamer = client.chat_stream(
             channel=channel_id,
             recipient_team_id=team_id,
@@ -65,16 +43,89 @@ def message(
             thread_ts=thread_ts,
         )
 
-        # Loop over OpenAI response stream
-        # https://platform.openai.com/docs/api-reference/responses/create
-        for event in returned_message:
-            if event.type == "response.output_text.delta":
-                streamer.append(markdown_text=f"{event.delta}")
-            else:
-                continue
+        # This first example shows a generated text response for the provided prompt
+        if message["text"] != "Wonder a few deep thoughts.":
+            set_status(
+                status="thinking...",
+                loading_messages=[
+                    "Teaching the hamsters to type faster…",
+                    "Untangling the internet cables…",
+                    "Consulting the office goldfish…",
+                    "Polishing up the response just for you…",
+                    "Convincing the AI to stop overthinking…",
+                ],
+            )
 
-        feedback_block = create_feedback_block()
-        streamer.stop(blocks=feedback_block)
+            # Loop over OpenAI response stream
+            # https://platform.openai.com/docs/api-reference/responses/create
+            for event in call_llm(message["text"]):
+                if event.type == "response.output_text.delta":
+                    streamer.append(markdown_text=f"{event.delta}")
+                else:
+                    continue
+
+            feedback_block = create_feedback_block()
+            streamer.stop(
+                blocks=feedback_block,
+            )
+
+        # The second example shows detailed thinking steps similar to tool calls
+        else:
+            streamer.append(
+                chunks=[
+                    MarkdownTextChunk(
+                        text="Hello.\nI have received the task. ",
+                    ),
+                    MarkdownTextChunk(
+                        text="This task appears manageable.\nThat is good.",
+                    ),
+                    TaskUpdateChunk(
+                        id="001",
+                        title="Understanding the task...",
+                        status="in_progress",
+                        details="- Indentify the goal\n- Identify constraints\n- Pretending this is obvious",
+                    ),
+                    TaskUpdateChunk(
+                        id="002",
+                        title="Performing acrobatics...",
+                        status="pending",
+                    ),
+                ],
+            )
+            time.sleep(4)
+
+            streamer.append(
+                chunks=[
+                    TaskUpdateChunk(
+                        id="001",
+                        title="Understanding the task...",
+                        status="complete",
+                        details="- Indentied the goal\n- Identied constraints\n- Pretended this was obvious",
+                        output="We'll continue to ramble now",
+                    ),
+                    TaskUpdateChunk(
+                        id="002",
+                        title="Performing acrobatics...",
+                        status="in_progress",
+                        details="- Jumping atop ropes\n- Juggling bowling pins\n- Riding a single wheel too",
+                    ),
+                ],
+            )
+            time.sleep(4)
+
+            streamer.stop(
+                chunks=[
+                    TaskUpdateChunk(
+                        id="002",
+                        title="Performing acrobatics...",
+                        status="complete",
+                        details="- Jumped atop ropes\n- Juggled bowling pins\n- Rode a single wheel too",
+                    ),
+                    MarkdownTextChunk(
+                        text="The crowd appears to be astouned and applauds :popcorn:"
+                    ),
+                ],
+            )
 
     except Exception as e:
         logger.exception(f"Failed to handle a user message event: {e}")
