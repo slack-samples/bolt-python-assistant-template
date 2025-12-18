@@ -83,7 +83,7 @@ def message(
                         id="001",
                         title="Understanding the task...",
                         status="in_progress",
-                        details="- Indentify the goal\n- Identify constraints\n- Pretending this is obvious",
+                        details="- Identifying the goal\n- Identifying constraints",
                     ),
                     TaskUpdateChunk(
                         id="002",
@@ -100,14 +100,13 @@ def message(
                         id="001",
                         title="Understanding the task...",
                         status="complete",
-                        details="- Indentied the goal\n- Identied constraints\n- Pretended this was obvious",
+                        details="\n- Pretending this was obvious",
                         output="We'll continue to ramble now",
                     ),
                     TaskUpdateChunk(
                         id="002",
                         title="Performing acrobatics...",
                         status="in_progress",
-                        details="- Jumping atop ropes\n- Juggling bowling pins\n- Riding a single wheel too",
                     ),
                 ],
             )
