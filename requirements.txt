@@ -4,6 +4,6 @@ slack-bolt==1.27.0
 # If you use a different LLM vendor, replace this dependency
 openai==2.12.0
 
-pytest==8.4.2
+pytest==9.0.2
 ruff==0.14.7
 python-dotenv==1.2.1
