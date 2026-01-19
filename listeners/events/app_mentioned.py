@@ -1,11 +1,11 @@
 from logging import Logger
 
+from openai.types.responses import ResponseInputParam
 from slack_bolt import Say
 from slack_sdk import WebClient
 
 from ai.llm_caller import call_llm
-
-from ..views.feedback_block import create_feedback_block
+from listeners.views.feedback_block import create_feedback_block
 
 
 def app_mentioned_callback(client: WebClient, event: dict, logger: Logger, say: Say):
@@ -39,25 +39,24 @@ def app_mentioned_callback(client: WebClient, event: dict, logger: Logger, say: 
             ],
         )
 
-        returned_message = call_llm(text)
-
         streamer = client.chat_stream(
             channel=channel_id,
             recipient_team_id=team_id,
             recipient_user_id=user_id,
             thread_ts=thread_ts,
         )
-
-        # Loop over OpenAI response stream
-        # https://platform.openai.com/docs/api-reference/responses/create
-        for event in returned_message:
-            if event.type == "response.output_text.delta":
-                streamer.append(markdown_text=f"{event.delta}")
-            else:
-                continue
+        prompts: ResponseInputParam = [
+            {
+                "role": "user",
+                "content": text,
+            },
+        ]
+        call_llm(streamer, prompts)
 
         feedback_block = create_feedback_block()
-        streamer.stop(blocks=feedback_block)
+        streamer.stop(
+            blocks=feedback_block,
+        )
     except Exception as e:
         logger.exception(f"Failed to handle a user message event: {e}")
         say(f":warning: Something went wrong! ({e})")

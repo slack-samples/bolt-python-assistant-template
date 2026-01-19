@@ -25,8 +25,8 @@ def assistant_thread_started(
                     "message": "Wonder a few deep thoughts.",
                 },
                 {
-                    "title": "Generate a release announcement",
-                    "message": "Please write detailed changelog notes for a feature that almost seems to be magic.",
+                    "title": "Roll dice for a random number",
+                    "message": "Roll two 12-sided dice and three 6-sided dice for a psuedo-random score.",
                 },
             ]
         )

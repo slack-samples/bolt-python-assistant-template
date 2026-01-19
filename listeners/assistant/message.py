@@ -1,13 +1,17 @@
 import time
 from logging import Logger
 
+from openai.types.responses import ResponseInputParam
 from slack_bolt import BoltContext, Say, SetStatus
 from slack_sdk import WebClient
-from slack_sdk.models.messages.chunk import MarkdownTextChunk, TaskUpdateChunk
+from slack_sdk.models.messages.chunk import (
+    MarkdownTextChunk,
+    PlanUpdateChunk,
+    TaskUpdateChunk,
+)
 
 from ai.llm_caller import call_llm
-
-from ..views.feedback_block import create_feedback_block
+from listeners.views.feedback_block import create_feedback_block
 
 
 def message(
@@ -36,13 +40,6 @@ def message(
         thread_ts = payload["thread_ts"]
         user_id = context.user_id
 
-        streamer = client.chat_stream(
-            channel=channel_id,
-            recipient_team_id=team_id,
-            recipient_user_id=user_id,
-            thread_ts=thread_ts,
-        )
-
         # This first example shows a generated text response for the provided prompt
         if message["text"] != "Wonder a few deep thoughts.":
             set_status(
@@ -56,13 +53,20 @@ def message(
                 ],
             )
 
-            # Loop over OpenAI response stream
-            # https://platform.openai.com/docs/api-reference/responses/create
-            for event in call_llm(message["text"]):
-                if event.type == "response.output_text.delta":
-                    streamer.append(markdown_text=f"{event.delta}")
-                else:
-                    continue
+            streamer = client.chat_stream(
+                channel=channel_id,
+                recipient_team_id=team_id,
+                recipient_user_id=user_id,
+                thread_ts=thread_ts,
+                task_display_mode="timeline",
+            )
+            prompts: ResponseInputParam = [
+                {
+                    "role": "user",
+                    "content": message["text"],
+                },
+            ]
+            call_llm(streamer, prompts)
 
             feedback_block = create_feedback_block()
             streamer.stop(
@@ -71,6 +75,13 @@ def message(
 
         # The second example shows detailed thinking steps similar to tool calls
         else:
+            streamer = client.chat_stream(
+                channel=channel_id,
+                recipient_team_id=team_id,
+                recipient_user_id=user_id,
+                thread_ts=thread_ts,
+                task_display_mode="plan",
+            )
             streamer.append(
                 chunks=[
                     MarkdownTextChunk(
@@ -96,6 +107,9 @@ def message(
 
             streamer.append(
                 chunks=[
+                    PlanUpdateChunk(
+                        title="Adding the final pieces...",
+                    ),
                     TaskUpdateChunk(
                         id="001",
                         title="Understanding the task...",
@@ -114,6 +128,9 @@ def message(
 
             streamer.stop(
                 chunks=[
+                    PlanUpdateChunk(
+                        title="Decided to put on a show",
+                    ),
                     TaskUpdateChunk(
                         id="002",
                         title="Performing acrobatics...",

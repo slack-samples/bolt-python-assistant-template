@@ -1,4 +1,4 @@
-slack-sdk==3.39.0
+slack-sdk==3.40.0.dev0
 slack-bolt==1.27.0
 
 # If you use a different LLM vendor, replace this dependency
