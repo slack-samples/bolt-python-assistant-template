@@ -41,6 +41,7 @@ def message(
         user_id = context.user_id
 
         # This first example shows a generated text response for the provided prompt
+        # displayed as a timeline.
         if message["text"] != "Wonder a few deep thoughts.":
             set_status(
                 status="thinking...",
@@ -74,6 +75,7 @@ def message(
             )
 
         # The second example shows detailed thinking steps similar to tool calls
+        # displayed as plan.
         else:
             streamer = client.chat_stream(
                 channel=channel_id,

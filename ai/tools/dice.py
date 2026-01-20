@@ -18,6 +18,8 @@ def roll_dice(sides: int = 6, count: int = 1) -> dict:
             "rolls": [],
             "total": 0,
         }
+
+    # Roll the dice and calculate the total
     rolls = [random.randint(1, sides) for _ in range(count)]
     total = sum(rolls)
 
