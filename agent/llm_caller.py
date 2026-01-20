@@ -6,7 +6,7 @@ from openai.types.responses import ResponseInputParam
 from slack_sdk.models.messages.chunk import TaskUpdateChunk
 from slack_sdk.web.chat_stream import ChatStream
 
-from ai.tools.dice import roll_dice, roll_dice_definition
+from agent.tools.dice import roll_dice, roll_dice_definition
 
 
 def call_llm(

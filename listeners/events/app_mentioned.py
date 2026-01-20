@@ -4,7 +4,7 @@ from openai.types.responses import ResponseInputParam
 from slack_bolt import Say
 from slack_sdk import WebClient
 
-from ai.llm_caller import call_llm
+from agent.llm_caller import call_llm
 from listeners.views.feedback_block import create_feedback_block
 
 

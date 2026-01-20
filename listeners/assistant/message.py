@@ -10,7 +10,7 @@ from slack_sdk.models.messages.chunk import (
     TaskUpdateChunk,
 )
 
-from ai.llm_caller import call_llm
+from agent.llm_caller import call_llm
 from listeners.views.feedback_block import create_feedback_block
 
 
