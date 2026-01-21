@@ -106,7 +106,7 @@ def message(
                         status="complete",
                     ),
                     MarkdownTextChunk(
-                        text="The crowd appears to be astouned and applauds :popcorn:"
+                        text="The crowd appears to be astounded and applauds :popcorn:"
                     ),
                 ],
             )
