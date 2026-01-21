@@ -36,6 +36,19 @@ slack create my-bolt-python-assistant --template slack-samples/bolt-python-assis
 cd my-bolt-python-assistant
 ```
 
+#### Setup your python virtual environment
+
+```sh
+python3 -m venv .venv
+source .venv/bin/activate  # for Windows OS, .\.venv\Scripts\Activate instead should work
+```
+
+#### Install dependencies
+
+```sh
+pip install -r requirements.txt
+```
+
 #### Creating the Slack app
 
 Use the following command to add your new Slack app to your development workspace. Choose a "local" app environment for upcoming development:
@@ -44,7 +57,7 @@ Use the following command to add your new Slack app to your development workspac
 slack install
 ```
 
-After the Slack app has been created you're all set to configure the LLM provider!
+After the Slack app has been created you're all set to [configure the LLM provider](#providers)!
 
 ### Using Terminal
 
