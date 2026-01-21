@@ -40,43 +40,9 @@ def message(
         thread_ts = payload["thread_ts"]
         user_id = context.user_id
 
-        # This first example shows a generated text response for the provided prompt
-        # displayed as a timeline.
-        if message["text"] != "Wonder a few deep thoughts.":
-            set_status(
-                status="thinking...",
-                loading_messages=[
-                    "Teaching the hamsters to type faster…",
-                    "Untangling the internet cables…",
-                    "Consulting the office goldfish…",
-                    "Polishing up the response just for you…",
-                    "Convincing the AI to stop overthinking…",
-                ],
-            )
-
-            streamer = client.chat_stream(
-                channel=channel_id,
-                recipient_team_id=team_id,
-                recipient_user_id=user_id,
-                thread_ts=thread_ts,
-                task_display_mode="timeline",
-            )
-            prompts: ResponseInputParam = [
-                {
-                    "role": "user",
-                    "content": message["text"],
-                },
-            ]
-            call_llm(streamer, prompts)
-
-            feedback_block = create_feedback_block()
-            streamer.stop(
-                blocks=feedback_block,
-            )
-
-        # The second example shows detailed thinking steps similar to tool calls
+        # The first example shows detailed thinking steps similar to tool calls
         # displayed as plan.
-        else:
+        if message["text"] == "Wonder a few deep thoughts.":
             streamer = client.chat_stream(
                 channel=channel_id,
                 recipient_team_id=team_id,
@@ -143,6 +109,40 @@ def message(
                         text="The crowd appears to be astouned and applauds :popcorn:"
                     ),
                 ],
+            )
+
+        # This second example shows a generated text response for a provided prompt
+        # displayed as a timeline.
+        else:
+            set_status(
+                status="thinking...",
+                loading_messages=[
+                    "Teaching the hamsters to type faster…",
+                    "Untangling the internet cables…",
+                    "Consulting the office goldfish…",
+                    "Polishing up the response just for you…",
+                    "Convincing the AI to stop overthinking…",
+                ],
+            )
+
+            streamer = client.chat_stream(
+                channel=channel_id,
+                recipient_team_id=team_id,
+                recipient_user_id=user_id,
+                thread_ts=thread_ts,
+                task_display_mode="timeline",
+            )
+            prompts: ResponseInputParam = [
+                {
+                    "role": "user",
+                    "content": message["text"],
+                },
+            ]
+            call_llm(streamer, prompts)
+
+            feedback_block = create_feedback_block()
+            streamer.stop(
+                blocks=feedback_block,
             )
 
     except Exception as e:
