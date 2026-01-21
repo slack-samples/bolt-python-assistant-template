@@ -89,6 +89,7 @@ def message(
                         id="002",
                         title="Performing acrobatics...",
                         status="in_progress",
+                        details="- Jumping atop ropes\n- Juggling bowling pins\n- Riding a single wheel too",
                     ),
                 ],
             )
@@ -103,7 +104,6 @@ def message(
                         id="002",
                         title="Performing acrobatics...",
                         status="complete",
-                        details="- Jumped atop ropes\n- Juggled bowling pins\n- Rode a single wheel too",
                     ),
                     MarkdownTextChunk(
                         text="The crowd appears to be astouned and applauds :popcorn:"
