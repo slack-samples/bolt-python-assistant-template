@@ -1,5 +1,4 @@
 import random
-import time
 
 from openai.types.responses import FunctionToolParam
 
@@ -22,9 +21,6 @@ def roll_dice(sides: int = 6, count: int = 1) -> dict:
     # Roll the dice and calculate the total
     rolls = [random.randint(1, sides) for _ in range(count)]
     total = sum(rolls)
-
-    # Add a pause between rolls to demonstrate loading states
-    time.sleep(2)
 
     return {
         "rolls": rolls,

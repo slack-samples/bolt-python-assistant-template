@@ -16,7 +16,7 @@ Join the [Slack Developer Program](https://api.slack.com/developer-program) for 
 
 Add this app to your workspace using either the Slack CLI or other development tooling, then read ahead to configuring LLM responses in the **[Providers](#providers)** section.
 
-### Using Slack CLI
+<details><summary><strong>Using Slack CLI</strong></summary>
 
 Install the latest version of the Slack CLI for your operating system:
 
@@ -46,7 +46,11 @@ slack install
 
 After the Slack app has been created you're all set to configure the LLM provider!
 
-### Using Terminal
+</details>
+
+<details><summary><strong>Using Terminal</strong></summary>
+
+#### Create Your Slack App
 
 1. Open [https://api.slack.com/apps/new](https://api.slack.com/apps/new) and choose "From an app manifest"
 2. Choose the workspace you want to install the application to
@@ -90,6 +94,8 @@ source .venv/bin/activate  # for Windows OS, .\.venv\Scripts\Activate instead sh
 ```sh
 pip install -r requirements.txt
 ```
+
+</details>
 
 ## Providers
 

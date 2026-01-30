@@ -40,9 +40,22 @@ def message(
         thread_ts = payload["thread_ts"]
         user_id = context.user_id
 
-        # The first example shows detailed thinking steps similar to tool calls
-        # displayed as plan.
+        # The first example shows a message with thinking steps that has different
+        # chunks to construct and update a plan alongside text outputs.
         if message["text"] == "Wonder a few deep thoughts.":
+            set_status(
+                status="thinking...",
+                loading_messages=[
+                    "Teaching the hamsters to type faster…",
+                    "Untangling the internet cables…",
+                    "Consulting the office goldfish…",
+                    "Polishing up the response just for you…",
+                    "Convincing the AI to stop overthinking…",
+                ],
+            )
+
+            time.sleep(4)
+
             streamer = client.chat_stream(
                 channel=channel_id,
                 recipient_team_id=team_id,
@@ -89,12 +102,12 @@ def message(
                         id="002",
                         title="Performing acrobatics...",
                         status="in_progress",
-                        details="- Jumping atop ropes\n- Juggling bowling pins\n- Riding a single wheel too",
                     ),
                 ],
             )
             time.sleep(4)
 
+            feedback_block = create_feedback_block()
             streamer.stop(
                 chunks=[
                     PlanUpdateChunk(
@@ -104,11 +117,13 @@ def message(
                         id="002",
                         title="Performing acrobatics...",
                         status="complete",
+                        details="- Jumped atop ropes\n- Juggled bowling pins\n- Rode a single wheel too",
                     ),
                     MarkdownTextChunk(
                         text="The crowd appears to be astounded and applauds :popcorn:"
                     ),
                 ],
+                blocks=feedback_block,
             )
 
         # This second example shows a generated text response for a provided prompt
