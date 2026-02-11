@@ -1,5 +1,6 @@
 slack-sdk==3.40.0
 slack-bolt==1.27.0
+slack-cli-hooks<1.0.0
 
 # If you use a different LLM vendor, replace this dependency
 openai==2.12.0
