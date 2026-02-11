@@ -1,8 +1,15 @@
 # AI Agent App Template (Bolt for Python)
 
-This Bolt for Python template demonstrates how to build [AI Apps](https://docs.slack.dev/ai/) in Slack.
+This Bolt for Python template demonstrates how to build [AI Apps](https://docs.slack.dev/ai/) in Slack, using models from [OpenAI](https://openai.com).
 
-Models from [OpenAI](https://openai.com) are used and can be customized for prompts of all kinds.
+## App overview
+
+Setting up this app can provide you with an AI agent that enables the following flow:
+
+* Users open the assistant side panel in Slack and see suggested prompts.
+* The app calls OpenAI's API when a user selects a prompt or sends a message.
+* The app streams in its response, which can be a combination of text and tasks.
+* Users provide feedback via buttons.
 
 ## Setup
 
