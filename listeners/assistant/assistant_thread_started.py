@@ -4,9 +4,9 @@ from slack_bolt import BoltAgent, Say
 
 
 def assistant_thread_started(
-    say: Say,
     agent: BoltAgent,
     logger: Logger,
+    say: Say,
 ):
     """
     Handle the assistant thread start event by greeting the user and setting suggested prompts.

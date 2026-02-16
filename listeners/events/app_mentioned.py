@@ -24,15 +24,9 @@ def app_mentioned_callback(
         say: Function to send messages to the thread from the app
     """
     try:
-        channel_id = event.get("channel")
-        team_id = event.get("team")
         text = event.get("text")
-        thread_ts = event.get("thread_ts") or event.get("ts")
-        user_id = event.get("user")
 
         agent.set_status(
-            channel_id=channel_id,
-            thread_ts=thread_ts,
             status="thinking...",
             loading_messages=[
                 "Teaching the hamsters to type faster…",

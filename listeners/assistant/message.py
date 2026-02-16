@@ -2,7 +2,7 @@ import time
 from logging import Logger
 
 from openai.types.responses import ResponseInputParam
-from slack_bolt import BoltAgent, BoltContext, Say
+from slack_bolt import BoltAgent, Say
 from slack_sdk.models.messages.chunk import (
     MarkdownTextChunk,
     PlanUpdateChunk,
@@ -15,10 +15,8 @@ from listeners.views.feedback_block import create_feedback_block
 
 def message(
     agent: BoltAgent,
-    context: BoltContext,
     logger: Logger,
     message: dict,
-    payload: dict,
     say: Say,
 ):
     """
@@ -26,18 +24,11 @@ def message(
 
     Args:
         agent: BoltAgent for making API calls
-        client: Slack WebClient for making API calls
-        context: Bolt context containing channel and thread information
         logger: Logger instance for error tracking
-        payload: Event payload with message details (channel, user, text, etc.)
+        message: Dictionary with message information
         say: Function to send messages to the thread
     """
     try:
-        channel_id = payload["channel"]
-        team_id = context.team_id
-        thread_ts = payload["thread_ts"]
-        user_id = context.user_id
-
         # The first example shows a message with thinking steps that has different
         # chunks to construct and update a plan alongside text outputs.
         if message["text"] == "Wonder a few deep thoughts.":
