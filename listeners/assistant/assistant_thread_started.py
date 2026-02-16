@@ -1,11 +1,11 @@
 from logging import Logger
 
-from slack_bolt import Say, SetSuggestedPrompts
+from slack_bolt import BoltAgent, Say
 
 
 def assistant_thread_started(
     say: Say,
-    set_suggested_prompts: SetSuggestedPrompts,
+    agent: BoltAgent,
     logger: Logger,
 ):
     """
@@ -18,7 +18,7 @@ def assistant_thread_started(
     """
     try:
         say("What would you like to do today?")
-        set_suggested_prompts(
+        agent.set_suggested_prompts(
             prompts=[
                 {
                     "title": "Prompt a task with thinking steps",

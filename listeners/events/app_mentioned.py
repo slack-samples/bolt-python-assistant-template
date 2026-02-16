@@ -2,20 +2,23 @@ from logging import Logger
 
 from openai.types.responses import ResponseInputParam
 from slack_bolt import BoltAgent, Say
-from slack_sdk import WebClient
 
 from agent.llm_caller import call_llm
 from listeners.views.feedback_block import create_feedback_block
 
 
-def app_mentioned_callback(agent: BoltAgent, client: WebClient, event: dict, logger: Logger, say: Say):
+def app_mentioned_callback(
+    agent: BoltAgent,
+    event: dict,
+    logger: Logger,
+    say: Say,
+):
     """
     Handles the event when the app is mentioned in a Slack conversation
     and generates an AI response.
 
     Args:
         agent: BoltAgent for making API calls
-        client: Slack WebClient for making API calls
         event: Event payload containing mention details (channel, user, text, etc.)
         logger: Logger instance for error tracking
         say: Function to send messages to the thread from the app
@@ -27,7 +30,7 @@ def app_mentioned_callback(agent: BoltAgent, client: WebClient, event: dict, log
         thread_ts = event.get("thread_ts") or event.get("ts")
         user_id = event.get("user")
 
-        client.assistant_threads_setStatus(
+        agent.set_status(
             channel_id=channel_id,
             thread_ts=thread_ts,
             status="thinking...",

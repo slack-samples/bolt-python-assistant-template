@@ -2,8 +2,7 @@ import time
 from logging import Logger
 
 from openai.types.responses import ResponseInputParam
-from slack_bolt import BoltAgent, BoltContext, Say, SetStatus
-from slack_sdk import WebClient
+from slack_bolt import BoltAgent, BoltContext, Say
 from slack_sdk.models.messages.chunk import (
     MarkdownTextChunk,
     PlanUpdateChunk,
@@ -16,13 +15,11 @@ from listeners.views.feedback_block import create_feedback_block
 
 def message(
     agent: BoltAgent,
-    client: WebClient,
     context: BoltContext,
     logger: Logger,
     message: dict,
     payload: dict,
     say: Say,
-    set_status: SetStatus,
 ):
     """
     Handles when users send messages or select a prompt in an assistant thread and generate AI responses:
@@ -34,7 +31,6 @@ def message(
         logger: Logger instance for error tracking
         payload: Event payload with message details (channel, user, text, etc.)
         say: Function to send messages to the thread
-        set_status: Function to update the assistant's status
     """
     try:
         channel_id = payload["channel"]
@@ -45,7 +41,7 @@ def message(
         # The first example shows a message with thinking steps that has different
         # chunks to construct and update a plan alongside text outputs.
         if message["text"] == "Wonder a few deep thoughts.":
-            set_status(
+            agent.set_status(
                 status="thinking...",
                 loading_messages=[
                     "Teaching the hamsters to type faster…",
@@ -125,7 +121,7 @@ def message(
         # This second example shows a generated text response for a provided prompt
         # displayed as a timeline.
         else:
-            set_status(
+            agent.set_status(
                 status="thinking...",
                 loading_messages=[
                     "Teaching the hamsters to type faster…",
