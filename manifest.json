@@ -1,4 +1,5 @@
 {
+  "$schema": "https://raw.githubusercontent.com/slackapi/manifest-schema/main/manifest.schema.json",
   "display_information": {
     "name": "Bolt Python AI Agent"
   },
