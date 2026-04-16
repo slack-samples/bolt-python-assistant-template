@@ -3,7 +3,7 @@ slack-bolt==1.28.0
 slack-cli-hooks<1.0.0
 
 # If you use a different LLM vendor, replace this dependency
-openai==2.31.0
+openai==2.32.0
 
 pytest==9.0.2
 ruff==0.15.10
