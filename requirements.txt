@@ -6,6 +6,6 @@ slack-cli-hooks<1.0.0
 openai==2.43.0
 
 pytest==9.0.2
-ruff==0.15.17
+ruff==0.15.18
 python-dotenv==1.2.1
 slack-cli-hooks<1.0.0
