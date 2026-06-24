@@ -7,7 +7,7 @@ dependencies = [
     "slack-bolt==1.28.0",
     "slack-cli-hooks<1.0.0",
     "openai==2.43.0",
-    "python-dotenv==1.2.1",
+    "python-dotenv==1.2.2",
 ]
 
 [project.optional-dependencies]
