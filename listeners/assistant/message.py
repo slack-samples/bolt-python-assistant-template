@@ -160,6 +160,6 @@ def message(
                 blocks=feedback_block,
             )
 
-    except Exception as e:  # noqa: BLE001
+    except Exception as e:
         logger.exception("Failed to handle a user message event")
         say(f":warning: Something went wrong! ({e})")
