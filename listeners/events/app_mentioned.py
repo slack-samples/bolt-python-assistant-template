@@ -57,6 +57,6 @@ def app_mentioned_callback(client: WebClient, event: dict, logger: Logger, say: 
         streamer.stop(
             blocks=feedback_block,
         )
-    except Exception as e:
-        logger.exception(f"Failed to handle a user message event: {e}")
+    except Exception as e:  # noqa: BLE001
+        logger.exception("Failed to handle a user message event")
         say(f":warning: Something went wrong! ({e})")
