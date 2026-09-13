@@ -1,3 +1,7 @@
+[build-system]
+requires = ["setuptools >= 78.1.1"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "bolt-python-ai-agent-template"
 version = "0.1.0"
