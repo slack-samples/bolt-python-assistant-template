@@ -2,8 +2,8 @@ import time
 from logging import Logger
 
 from openai.types.responses import ResponseInputParam
-from slack_bolt import BoltContext, Say, SetStatus
-from slack_sdk import WebClient
+from slack_bolt import Say, SetStatus
+from slack_bolt.context.say_stream import SayStream
 from slack_sdk.models.messages.chunk import (
     MarkdownTextChunk,
     PlanUpdateChunk,
@@ -15,31 +15,23 @@ from listeners.views.feedback_block import create_feedback_block
 
 
 def message(
-    client: WebClient,
-    context: BoltContext,
     logger: Logger,
     message: dict,
-    payload: dict,
     say: Say,
+    say_stream: SayStream,
     set_status: SetStatus,
 ):
     """
     Handles when users send messages or select a prompt in an assistant thread and generate AI responses:
 
     Args:
-        client: Slack WebClient for making API calls
-        context: Bolt context containing channel and thread information
         logger: Logger instance for error tracking
-        payload: Event payload with message details (channel, user, text, etc.)
+        message: The message event payload
         say: Function to send messages to the thread
+        say_stream: Function to start a chat stream in the thread
         set_status: Function to update the assistant's status
     """
     try:
-        channel_id = payload["channel"]
-        team_id = context.team_id
-        thread_ts = payload["thread_ts"]
-        user_id = context.user_id
-
         # The first example shows a message with thinking steps that has different
         # chunks to construct and update a plan alongside text outputs.
         if message["text"] == "Wonder a few deep thoughts.":
@@ -56,11 +48,7 @@ def message(
 
             time.sleep(4)
 
-            streamer = client.chat_stream(
-                channel=channel_id,
-                recipient_team_id=team_id,
-                recipient_user_id=user_id,
-                thread_ts=thread_ts,
+            streamer = say_stream(
                 task_display_mode="plan",
             )
             streamer.append(
@@ -140,11 +128,7 @@ def message(
                 ],
             )
 
-            streamer = client.chat_stream(
-                channel=channel_id,
-                recipient_team_id=team_id,
-                recipient_user_id=user_id,
-                thread_ts=thread_ts,
+            streamer = say_stream(
                 task_display_mode="timeline",
             )
             prompts: ResponseInputParam = [
