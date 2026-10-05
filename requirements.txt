@@ -1,4 +1,4 @@
-slack-sdk==3.44.1
+slack-sdk==3.45.0
 slack-bolt==1.30.0
 slack-cli-hooks<1.0.0
 
