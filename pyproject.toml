@@ -7,7 +7,7 @@ dependencies = [
     "slack-bolt==1.30.0",
     "slack-cli-hooks<1.0.0",
     # If you use a different LLM vendor, replace this dependency
-    "openai==3.29.0",
+    "openai==3.31.0",
     "python-dotenv==1.2.4",
 ]
 
