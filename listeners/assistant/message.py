@@ -161,5 +161,5 @@ def message(
             )
 
     except Exception as e:
-        logger.exception(f"Failed to handle a user message event: {e}")
+        logger.exception("Failed to handle a user message event")
         say(f":warning: Something went wrong! ({e})")

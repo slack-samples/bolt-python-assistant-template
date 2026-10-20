@@ -1,5 +1,3 @@
-from typing import List
-
 from slack_sdk.models.blocks import (
     Block,
     ContextActionsBlock,
@@ -8,14 +6,14 @@ from slack_sdk.models.blocks import (
 )
 
 
-def create_feedback_block() -> List[Block]:
+def create_feedback_block() -> list[Block]:
     """
     Create feedback block with thumbs up/down buttons
 
     Returns:
         Block Kit context_actions block
     """
-    blocks: List[Block] = [
+    blocks: list[Block] = [
         ContextActionsBlock(
             elements=[
                 FeedbackButtonsElement(
