@@ -37,5 +37,5 @@ def handle_feedback(ack: Ack, body: dict, client: WebClient, logger: Logger):
             )
 
         logger.debug(f"Handled feedback: type={feedback_type}, message_ts={message_ts}")
-    except Exception as error:
+    except Exception as error:  # noqa: BLE001
         logger.error(f":warning: Something went wrong! {error}")

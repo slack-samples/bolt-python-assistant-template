@@ -11,7 +11,7 @@
     },
     "bot_user": {
       "display_name": "Bolt Python AI Agent",
-      "always_online": false
+      "always_online": true
     },
     "assistant_view": {
       "assistant_description": "Hi, I am an agent built using Bolt for Python. I am here to help you out!",

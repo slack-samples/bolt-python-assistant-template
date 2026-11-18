@@ -19,6 +19,49 @@ Before getting started, make sure you have a development workspace where you hav
 
 Join the [Slack Developer Program](https://api.slack.com/developer-program) for exclusive access to sandbox environments for building and testing your apps, tooling, and resources created to help you build and grow.
 
+### Claude Code, Codex, Cursor, and Other Coding Agents
+
+Install the [Slack MCP and Skills Plugin](https://docs.slack.dev/ai/slack-skills-plugin/) so your coding agent can create, run, and deploy Slack apps, look up Web API methods and scopes, and build Block Kit without guessing.
+
+#### Claude Code
+
+Run this in a Claude Code session:
+
+```
+/plugin marketplace add slackapi/slack-skills-plugin
+/plugin install slack@slack
+```
+
+**Enable auto-updates**: `/plugin` > Marketplaces > `slack` > Enable auto-update.
+
+#### Codex
+
+Run this in your terminal:
+
+```sh
+codex plugin marketplace add slackapi/slack-skills-plugin
+codex plugin add slack@slack
+```
+
+#### Cursor
+
+Run this in a Cursor Agent chat:
+
+```
+/add-plugin slack
+```
+
+#### Other agents
+
+Install the skills with `npx skills`, using your [agent's identifier](https://github.com/vercel-labs/skills#supported-agents):
+
+```sh
+npx skills add slackapi/slack-skills-plugin -y -a <agent>
+
+# For example, OpenCode
+npx skills add slackapi/slack-skills-plugin -y -a opencode
+```
+
 ## Installation
 
 Add this app to your workspace using either the Slack CLI or other development tooling, then read ahead to configuring LLM responses in the **[Providers](#providers)** section.
@@ -99,7 +142,7 @@ source .venv/bin/activate  # for Windows OS, .\.venv\Scripts\Activate instead sh
 #### Install dependencies
 
 ```sh
-pip install -r requirements.txt
+pip install -e ".[dev]"
 ```
 
 </details>

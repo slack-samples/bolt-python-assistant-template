@@ -39,20 +39,22 @@ def call_llm(
             streamer.append(markdown_text=f"{event.delta}")
 
         # Function calls are saved for later computation and a new task is shown
-        if event.type == "response.output_item.done":
-            if event.item.type == "function_call":
-                tool_calls.append(event.item)
-                if event.item.name == "roll_dice":
-                    args = json.loads(event.item.arguments)
-                    streamer.append(
-                        chunks=[
-                            TaskUpdateChunk(
-                                id=f"{event.item.call_id}",
-                                title=f"Rolling a {args['count']}d{args['sides']}...",
-                                status="in_progress",
-                            ),
-                        ],
-                    )
+        if (
+            event.type == "response.output_item.done"
+            and event.item.type == "function_call"
+        ):
+            tool_calls.append(event.item)
+            if event.item.name == "roll_dice":
+                args = json.loads(event.item.arguments)
+                streamer.append(
+                    chunks=[
+                        TaskUpdateChunk(
+                            id=f"{event.item.call_id}",
+                            title=f"Rolling a {args['count']}d{args['sides']}...",
+                            status="in_progress",
+                        ),
+                    ],
+                )
 
     # Tool calls are performed and tasks are marked as completed in Slack
     if tool_calls:
